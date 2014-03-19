@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN" "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+
+<mapper namespace="user">
+	
+	<select id="list" parameterType="HashMap" resultType="User">
+		SELECT id, name, register_date 
+		FROM tbl_admin
+		<if test="pg != null and pg != ''">
+			LIMIT #{pg.startPoint}, #{pg.endPoint}
+		</if>
+	</select>
+	
+	<select id="count" parameterType="java.util.HashMap" resultType="int">
+		SELECT count(*)
+		FROM tbl_admin
+	</select>
+	
+	<select id="view" parameterType="User" resultType="User">
+		SELECT id, name, register_date, update_date
+		FROM tbl_admin
+		WHERE id = #{id} 
+	</select>	
+	
+	<insert id="insert" parameterType="User">
+		INSERT INTO tbl_admin
+		( 	id,  password, name, register_date) 
+		VALUES
+		(#{id}, #{password}, #{name}, sysdate()) 
+	</insert>
+
+	<update id="update" parameterType="User">
+		UPDATE tbl_admin
+			<set>
+				<if test="password != null">password = #{password},</if>
+				<if test="name != null">name = #{name},</if>
+				<if test="update_date != null">update_date = sysdate()</if>
+			</set>
+		WHERE id = #{id}
+	</update>
+</mapper>

@@ -19,9 +19,12 @@
 		<typeAlias alias="HashMap" type="java.util.HashMap"/>
 		<typeAlias alias="hashmap" type="java.util.HashMap"/>
 		
-		
+		<typeAlias alias="User" type="com.mobilepark.did.user.model.User"/>	
 	</typeAliases>
 	
-	
+	<mappers>		
+		<mapper resource="com/mobilepark/did/login/sql/login.xml"/>
+		<mapper resource="com/mobilepark/did/user/sql/user.xml"/>	
+	</mappers>
 
 </configuration>
