@@ -61,7 +61,7 @@ function LogOut(){
 </script>
 
 </head>
-<body>
+<body class="sidebars">
 	<div id="wrapper">
 		<div id="container" class="clear-block">
 			<div id="header">
@@ -78,7 +78,7 @@ function LogOut(){
 				</div>
 				<!-- user menu end -->
 				<!-- admin menu start -->
-				<div id="block-block-2" class="clear-block block block-block">
+				<div id="block-block-2" class="clear-block">
 					<div id="hiddenMenu" class="content">
 						<ul>
 							<li class="leaf"><a href="#" onclick="javascript:MovePage('admin/user/user/list.htm','');">Admin User</a></li>
@@ -101,11 +101,13 @@ function LogOut(){
 			</div>
 			<!-- center start -->
 			<div id="center">
-				
-					
-							<h2>UXCUTOR</h2>
-					 
-					
+				<div id="squeeze">
+					<div class="right-corner">
+						<div class="left-corner">
+							<h2>DID</h2>
+					 	</div>
+					</div>
+				</div>	
 			</div>
 			
 		</div>
