@@ -49,6 +49,10 @@
 			<param-name>forceEncoding</param-name>
 			<param-value>true</param-value>
 		</init-param>
+		<init-param>
+			<param-name>enablePooling</param-name>
+			<param-value>false</param-value>
+		</init-param>
 	</filter>
 	<filter-mapping>
 		<filter-name>encodingFilter</filter-name>
@@ -59,5 +63,5 @@
 		<display-name>EnvLoader</display-name>
 		<listener-class>com.mobilepark.did.common.EnvServletContextListener</listener-class>
 	</listener>
-
+	
 </web-app>

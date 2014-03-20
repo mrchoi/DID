@@ -38,7 +38,7 @@ public class LoginController {
 			session.setAttribute("ADMIN_ID", detail.getId());
 			session.setAttribute("ADMIN_NAME", detail.getName());
 			
-			return "redirect:/admin/user/list.htm";
+			return "admin/main";
 		} else {
 			model.addAttribute("loginCheck", "F");
 			return "admin/login";
@@ -53,7 +53,7 @@ public class LoginController {
 			session.invalidate();
 		}
 		
-		return "redirect:login.htm";
+		return "admin/main";
 	}
 		
 	

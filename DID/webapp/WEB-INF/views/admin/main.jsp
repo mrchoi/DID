@@ -58,7 +58,8 @@ function LogOut(){
 		url : "logout.htm",
 		data : "",
 		success : function(response) {
-			$("#content").html(response);
+			//$("#content").html(response);
+			location.href="index.htm";
 			return false;
 		},
 		error : function() {
@@ -70,7 +71,7 @@ function LogOut(){
 </script>
 
 </head>
-<body class="sidebars">
+<body>
 
 	<header> 
 	    <hgroup class="clearfix"> 
