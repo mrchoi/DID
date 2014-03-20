@@ -8,7 +8,7 @@ $(document).ready(function(){
 		alert("아이디/비밀번호가 확인 되지 않습니다.");
 	}
 	
-	$("#login").click(function(){
+	$("#registbt").click(function(){
 		if(!$("#id").val()){
 			alert("아이디를 입력해주세요.");
 			$("#id").focus();
@@ -28,12 +28,12 @@ $(document).ready(function(){
 					
 					$("#loginBefore").hide();
 					$("#loginAfter").show();
-					$("#center").html(response);
+					$("#content").html(response);
 					return false;
 				},
 				error : function() {
 					
-					alert("메뉴를 다시 선택해주세요.");
+					alert("다시 Login해주세요.");
 					return false;
 				}
 			});
@@ -45,43 +45,25 @@ $(document).ready(function(){
 
 </script>
 <form name="sendForm" id="sendForm" method="post">
-<div id="squeeze">
-	<div class="right-corner">
-		<div class="left-corner">
-			<div class="breadcrumb">
-				Menu > LOGIN
-			</div>   
-			<div id="tabs-wrapper" class="clear-block"> 
-				<h2 class="with-tabs">Admin User Login</h2>
-			</div>                            
-
-			<!-- /clear-block -->
-			<div class="clear-block">
-				<div>
-					<div class="form-item" id="edit-name-wrapper">
-						<label id="edit-name">Id
-						<span class="form-required" title="This field is required.">*</span>
-						</label>
-						<input type="text" name="id" id="id" size="20" value="admin" class="form-text required">						
-					</div>
-					<div class="description">Enter your id.</div>
-							
-					<div class="form-item" id="edit-pass-wrapper">
-						<label id="edit-pass">Password
-						<span class="form-required" title="This field is required.">*</span>
-						</label>
-						<input type="password" name="password" id="password" maxlength="20" size="20" value="admin.123" class="form-text required">						
-					</div>
-					<div class="description">Enter your password.</div>
-				</div>	
-				
-				<div class="form-item">	
-					<a href="#" id="login" class="form-submit">Log in</a>
-				</div>
-			</div>
-			<!-- clear-block/ -->
-			
-		</div>
-	</div>
-</div>
+<article>
+		<section>
+       	<h1>Admin Login</h1>
+           <figure>
+           		<table style="width:80%">
+           				
+           				<tr>
+           					<th>id</th>
+           					<td><input type="text" name="id" id="id" size="20" value="admin"> * Enter your id.</td>
+           				</tr>
+           				<tr>
+           					<th>password</th>
+           					<td> <input type="password" name="password" id="password" maxlength="20" size="20" value="admin.123"> * Enter your password.</td>
+           				</tr>
+           		</table>
+			</figure>
+		</section>
+		<div align="right">
+			<input id="registbt" type="button" value="Login"/>
+		</div>	
+	</article>
 </form>

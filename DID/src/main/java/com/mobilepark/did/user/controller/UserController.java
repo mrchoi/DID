@@ -30,7 +30,7 @@ public class UserController {
 	@Autowired
 	private UserService userService;
 
-	@RequestMapping(value = "/user/list.htm")
+	@RequestMapping(value = "admin/user/list.htm")
 	public ModelAndView list(
 			@RequestParam(value = "curPage", defaultValue = "") String curPage) {
 
@@ -47,7 +47,7 @@ public class UserController {
 		hash.put("pg", pg);
 		
 		ModelAndView mv = new ModelAndView();
-		mv.setViewName("user/list");
+		mv.setViewName("admin/user/list");
 		mv.addObject("list", userService.list(hash));
 		mv.addObject("pageHandler", pg);
 

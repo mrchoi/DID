@@ -6,22 +6,33 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
-<title>Insert title here</title>
-<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/defaults.css">
-<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/style.css">
-<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/system.css">
+<title>DID</title>
+
+<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/did.css">
 
 <script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/jquery-1.11.0.min.js"></script>
 <script type="text/javascript">
 
 $(document).ready(function(){
 	if('${ADMIN_ID}' == '') {
-		//MovePage("admin/login.htm","");
+		MovePage("login.htm","");
 	}else{		
-		//MovePage("admin/list.htm","");
+		MovePage("user/list.htm","");
 	}
 	
+	initMenu();
 });
+
+function initMenu() {
+    $('#menu ul').hide(); // Hide the submenu
+    if ($('#menu li').has('ul')) $('#menu ul').prev().addClass('expandable'); // Expand/collapse a submenu when it exists  
+    $('.expandable').click(
+      function() {
+          $(this).next().slideToggle();
+          $(this).toggleClass('expanded');
+        }
+      );
+    }
 
 function MovePage(url, data) {
 
@@ -30,7 +41,7 @@ function MovePage(url, data) {
 		url : url,
 		data : data,
 		success : function(response) {
-			$("#center").html(response);
+			$("#content").html(response);
 			return false;
 		},
 		error : function() {
@@ -44,16 +55,14 @@ function LogOut(){
 
 	$.ajax({
 		type : "POST",
-		url : "admin/logout.htm",
+		url : "logout.htm",
 		data : "",
 		success : function(response) {
-			$("#loginBefore").show();
-			$("#loginAfter").hide();
-			$("#center").html(response);
+			$("#content").html(response);
 			return false;
 		},
 		error : function() {
-			alert("메뉴를 다시 선택해주세요.");
+			alert("다시 Logout해주세요.");
 			return false;
 		}
 	});
@@ -62,60 +71,67 @@ function LogOut(){
 
 </head>
 <body class="sidebars">
-	<div id="wrapper">
-		<div id="container" class="clear-block">
-			<div id="header">
-				<div id="logo-floater">
-					<h1>DID </h1>
-				</div>
-			</div>
-			<div id="sidebar-left" class="sidebar">
-				<!-- user menu start -->
-				<div id="block-user-1" class="clear-block block block-user">
-					<h2>Menu</h2>
-					<div id="menuList" class="content">
-					</div>
-				</div>
-				<!-- user menu end -->
-				<!-- admin menu start -->
-				<div id="block-block-2" class="clear-block">
-					<div id="hiddenMenu" class="content">
-						<ul>
-							<li class="leaf"><a href="#" onclick="javascript:MovePage('admin/user/user/list.htm','');">Admin User</a></li>
-						</ul>
-						<ul>
-							<li class="leaf"><a href="#" onclick="javascript:MovePage('admin/contents/list.htm','');">Contents</a></li>
-						</ul>
-						
-					</div>
-				</div>
-				<div id="block-block-3" class="clear-block">
-					
-					<ul>
-						<li id="loginBefore" class="leaf"><a href="#" onclick="javascript:MovePage('login.htm','');">Login</a></li>
-						<li id="loginAfter" class="leaf" style="display:none;"><a href="#" onclick="javascript:LogOut();">Logout</a></li>														
-					</ul>
-										
-				</div>
-				<!-- admin menu end -->
-			</div>
-			<!-- center start -->
-			<div id="center">
-				<div id="squeeze">
-					<div class="right-corner">
-						<div class="left-corner">
-							<h2>DID</h2>
-					 	</div>
-					</div>
-				</div>	
-			</div>
-			
-		</div>
-		
-		<div id="copyright">
-							
-		</div>
-		
+
+	<header> 
+	    <hgroup class="clearfix"> 
+	        <h1><a href="#">DID Admin </a></h1>
+	         <c:if test="${ADMIN_ID!=null}"> 
+	        <h2><a href="#"> ${ADMIN_NAME}</a> / <a href="#" onclick="javascript:LogOut();">Logout</a></h2> 
+	        </c:if>
+	    </hgroup>
+	</header>
+	
+	<div id="main" class="clearfix">
+	    <aside>
+	        <nav>
+	            <ul id="menu">
+	                <li><a href="#">Admin 관리</a></li>
+	                <li><a href="#">국토종주 자전거길 관리</a></li>
+	                <li>
+	                    <a href="#">주변역사 안내</a>
+	                    <ul>                
+	                        <li><a href="#">관광지 관리</a></li>
+	                        <li><a href="#">음식점 관리</a></li>
+	                        <li><a href="#">숙박시설 관리</a></li>
+	                        <li><a href="#">특산품 판매점 관리</a></li> 
+	                        <li><a href="#">대중교통 관리</a></li> 
+	                        <li><a href="#">관공서 관리</a></li>                      
+	                    </ul>        
+	                </li>
+	                <li>
+	                    <a href="#">편의시설 안내</a>
+	                    <ul>
+	                        <li><a href="#">자전거 대여소 관리</a></li>
+	                        <li><a href="#">화장실 관리</a></li>
+	                        <li><a href="#">쉼터 관리</a></li>
+	                        <li><a href="#">인증센터 관리</a></li> 
+	                        <li><a href="#">자전거샾 관리</a></li>  
+	                        <li><a href="#">병원,약국 관리</a></li>
+	                        <li><a href="#">음수대 관리</a></li>                
+	                    </ul>
+	                </li>
+	                <li>
+	                    <a href="#">단말 관리</a>
+	                    <ul>
+	                        <li><a href="#">키오스트 상태</a></li>
+	                        <li><a href="#">스케쥴링</a></li>
+	                        <li><a href="#">시스템 시계 보정</a></li>
+	                        <li><a href="#">메니저 관리</a></li> 
+	                        <li><a href="#">시스템 캐시 관리</a></li>  	                                      
+	                    </ul>
+	                </li>	                               
+	            </ul>
+	        </nav>
+	    </aside>
+	    
+	    <div id="content">
+	                      
+	    </div>
 	</div>
+	
+	<footer>
+    	Design and code by <a href="http://www.red-team-design.com/">RedTeamDesign</a>
+	</footer>
+	
 </body>
 </html>

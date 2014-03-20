@@ -31,10 +31,9 @@ public class LoginController {
 	public String loginForm(Model model,
 			@ModelAttribute("user") User user, HttpSession session) throws Exception
 	{
-		User detail = new User();
-		
+		User detail = new User();		
 		detail = service.loginCheck(user);
-
+		
 		if(detail!=null) {
 			session.setAttribute("ADMIN_ID", detail.getId());
 			session.setAttribute("ADMIN_NAME", detail.getName());
@@ -46,7 +45,7 @@ public class LoginController {
 		}
 	}
 	
-	@RequestMapping(value = "/admin/logout.htm", method = RequestMethod.POST)
+	@RequestMapping(value = "admin/logout.htm", method = RequestMethod.POST)
 	public String logout(Model model, HttpSession session) throws Exception
 	{
 		
@@ -54,7 +53,7 @@ public class LoginController {
 			session.invalidate();
 		}
 		
-		return "redirect:admin/login.htm";
+		return "redirect:login.htm";
 	}
 		
 	
