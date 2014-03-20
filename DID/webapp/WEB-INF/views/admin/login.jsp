@@ -44,6 +44,7 @@ $(document).ready(function(){
 });
 
 </script>
+
 <form name="sendForm" id="sendForm" method="post">
 <article>
 		<section>
