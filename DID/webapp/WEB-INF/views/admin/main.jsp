@@ -86,7 +86,7 @@ function LogOut(){
 	    <aside>
 	        <nav>
 	            <ul id="menu">
-	                <li><a href="#">Admin 관리</a></li>
+	                <li><a href="#" onclick="javascript:MovePage('user/list.htm','');">Admin 관리</a></li>
 	                <li><a href="#">국토종주 자전거길 관리</a></li>
 	                <li>
 	                    <a href="#">주변역사 안내</a>
@@ -114,11 +114,11 @@ function LogOut(){
 	                <li>
 	                    <a href="#">단말 관리</a>
 	                    <ul>
-	                        <li><a href="#">키오스트 상태</a></li>
-	                        <li><a href="#">스케쥴링</a></li>
-	                        <li><a href="#">시스템 시계 보정</a></li>
-	                        <li><a href="#">메니저 관리</a></li> 
-	                        <li><a href="#">시스템 캐시 관리</a></li>  	                                      
+	                        <li><a href="#">키오스트 단말</a></li>
+	                        <li><a href="#">키오스크 모니터링</a></li>
+	                        <li><a href="#" onclick="javascript:MovePage('notice/list.htm','');">키오스크 매니저</a></li>
+	                        <!-- <li><a href="#">메니저 관리</a></li> 
+	                        <li><a href="#">시스템 캐시 관리</a></li>  -->	                                      
 	                    </ul>
 	                </li>	                               
 	            </ul>

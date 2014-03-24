@@ -19,12 +19,14 @@
 		<typeAlias alias="HashMap" type="java.util.HashMap"/>
 		<typeAlias alias="hashmap" type="java.util.HashMap"/>
 		
-		<typeAlias alias="User" type="com.mobilepark.did.user.model.User"/>	
+		<typeAlias alias="User" type="com.mobilepark.did.user.model.User"/>
+		<typeAlias alias="Notice" type="com.mobilepark.did.notice.model.Notice"/>	
 	</typeAliases>
 	
 	<mappers>		
 		<mapper resource="com/mobilepark/did/login/sql/login.xml"/>
 		<mapper resource="com/mobilepark/did/user/sql/user.xml"/>	
+		<mapper resource="com/mobilepark/did/notice/sql/Notice.xml"/>	
 	</mappers>
 
 </configuration>
