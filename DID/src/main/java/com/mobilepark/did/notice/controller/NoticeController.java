@@ -86,5 +86,6 @@ public class NoticeController {
 		return msg;
 	}
 
+	
 
 }
