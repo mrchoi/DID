@@ -4,120 +4,67 @@
 
 <script type="text/javascript">
 $(document).ready(function(){
-	$("#nextbt").click(function(){
+	$("#registbt").click(function(){
 		$("#auth").val();
 		var data = $("#scForm").serializeArray();
 		
-		if($("#id").val()==""){
-			alert("아이디를 입력하여 주시기 바랍니다.");
-			$("#id").focus();
+		if($("#title").val()==""){
+			alert("제목을 입력하여 주시기 바랍니다.");
+			$("#title").focus();
 			return false;
 		}
 
-		if($("#password").val()==""){
-			alert("비밀번호를 입력하여 주시기 바랍니다.");
-			$("#password").focus();
+		if($("#contents").val()==""){
+			alert("내용을 입력하여 주시기 바랍니다.");
+			$("#contents").focus();
 			return false;
 		} 
-		
-		if($("#password").val().length < 4){
-			alert("비밀번호는 4글자 이상 입력할 수 있습니다.");
-			$("#password").focus();
-			return false;
-		}
-		
-		if($("#password").val().length > 32){
-			alert("비밀번호는 최대 32글자까지 입력할 수 있습니다.");
-			$("#password").focus();
-			return false;
-		}		
-		
-		if($("#repassword").val()==""){
-			alert("비밀번호확인을 입력하여 주시기 바랍니다.");
-			$("#repassword").focus();
-			return false;
-		}
 
-		if($("#repassword").val().length > 32){
-			alert("비밀번호 확인은 최대 32글자까지 입력할 수 있습니다.");
-			$("#repassword").focus();
-			return false;
-		} 
-		
-		if($("#password").val() != $("#repassword").val()){
-			alert("비밀번호가 동일 하지 않습니다. 다시 입력하여 주시기 바랍니다.");
-			$("#password").focus();
-			return false;
-		}
-
-		if($("#name").val()==""){
-			alert("이름을 입력하여 주시기 바랍니다.");
-			$("#name").focus();
-			return false;
-		}
-		
-		/* if($("#chk").val()==""){
-			alert("아이디 중복체크를 확인하여 주시기 바랍니다.");
-			$("#id").focus();
-			return false;		
-		}	 */
-
-		ProcessPage("user/insert.htm",data,"user/list.htm");
+		ProcessPage("notice/insert.htm",data,"notice/list.htm");
 	});
 	
-	$("#registbt").click(function(){
+	$("#nextbt").click(function(){
 		var data = $("#scForm").serializeArray();
-		MovePage("user/list.htm", data);
+		MovePage("notice/list.htm", data);
 	});	
 });
-	
-	function goCheckId(){
-		var id = $("#id").val();
-		
-		if(id == ""){
-			alert("아이디를 입력하여 주시기 바랍니다.");
-			$("#id").focus();
-			return false;
-		}
-		popUp("300", "200", $("#scForm"), "operator/check.htm");
-	}
-	
+
 </script>
 <form name="scForm" id="scForm">
-	<input type="hidden" name="chk" id="chk" />
 	<input type="hidden" name="curPage" id="curPage" value="${curPage}"/>
 	<article>
 			<section>
-	       	<h1>Admin 정보 등록</h1>
+	       	<h1>키오스크 매니저 -> 등록</h1>
 	           <figure>			
-					<table summary="Admin 정보 등록">						
+					<table summary="키오스크 매니저 정보 등록">						
 						<colgroup>
 						<col width="140"><col>
 						<col width="120"><col>
 						</colgroup>
 						<tbody>
 							<tr class="underline">
-								<th scope="row"><label for="id">키오스크 단말</label></th>
-								<td><input type="text" id="id" name="id" class="i_text" style="ime-mode: disabled;" onKeyDown="onNotText(this);" >
+								<th scope="row"><label for="kind">키오스크 단말</label></th>
+								<td><input type="text" id="kind" name="kind" class="i_text">
+								</td>
+							</tr>
+							<tr class="underline">
+								<th scope="row"><label for="title">제목</label></th>
+								<td><input type="text" id="title" name="title" class="i_text" maxlength="45">
 								* 필수 항목입니다.
 								</td>
 							</tr>
 							<tr class="underline">
-								<th scope="row"><label for="password">제목</label></th>
-								<td><input type="password" id="password" name="password" title="비밀번호는 최대 32자리까지 입력 가능합니다." class="i_text" maxlength="32">
-								* 최대 32자리까지 가능합니다. 
+								<th scope="row"><label for="contents">내용</label></th>
+								<td><textarea rows="5" cols="50" id="contents" name="contents"></textarea>
 								</td>
 							</tr>
 							<tr class="underline">
-								<th scope="row"><label for="repassword">내용</label></th>
-								<td><input type="password" id="repassword" name="repassword" title="비밀번호 확인" class="i_text" maxlength="32"> 
-								* 비밀번호를 다시 입력해주세요.
-								</td>
-							</tr>
-							<tr class="underline">
-								<th scope="row"><label for="name">상태</label></th>
-								<td><input type="text" id="name" name="name" title="이름" class="i_text" maxlength="16">
-								* 필수 항목입니다.
+								<th scope="row"><label for="status">상태</label></th>
+								<td>
+									<select name="status" id="status">
+										<option value="1">실행</option>
+										<option value="2">종료</option>
+									</select>
 								</td>
 							</tr>
 						</tbody>
@@ -126,8 +73,8 @@ $(document).ready(function(){
 			</section>
 			
 			<div align="center">
-				<input id="nextbt" type="button" value="Regist"/>
-				<input id="registbt" type="button" value="List"/>
+				<input id="registbt" type="button" value="Regist"/>
+				<input id="nextbt" type="button" value="List"/>
 			</div>	
 					
 		</article>

@@ -17,4 +17,11 @@
 		FROM tbl_notice
 	</select>
 	
+	<insert id="insert" parameterType="Notice">
+		INSERT INTO tbl_notice
+		( 	title,  contents, id, kind, status, register_date) 
+		VALUES
+		(#{title}, #{contents}, #{id}, #{kind}, #{status}, sysdate()) 
+	</insert>
+	
 </mapper>

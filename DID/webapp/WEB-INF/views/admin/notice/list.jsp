@@ -11,7 +11,7 @@ $(document).ready(function(){
 	}
 	
 	$("#registbt").click(function(){
-		MovePage("user/insertForm.htm","");
+		MovePage("notice/insertForm.htm","");
 	});
 });
 
