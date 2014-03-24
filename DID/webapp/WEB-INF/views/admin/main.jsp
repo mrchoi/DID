@@ -68,6 +68,30 @@ function LogOut(){
 		}
 	});
 }
+
+/*
+ * insert, update, delete
+ */
+function ProcessPage(url, data, re_url) {
+	//$("#loading").show();
+	$.ajax({
+		type : "POST",
+		url : url,
+		data : data,
+		success : function(response) {
+			//$("#loading").hide();
+			alert(response);
+			if (re_url.length > 0) {
+				MovePage(re_url, data);
+			}
+		},
+		error : function() {
+			//$("#loading").hide();
+			alert("다시 진행해주세요.");
+			return false;
+		}
+	});
+}
 </script>
 
 </head>
@@ -88,6 +112,7 @@ function LogOut(){
 	            <ul id="menu">
 	                <li><a href="#" onclick="javascript:MovePage('user/list.htm','');">Admin 관리</a></li>
 	                <li><a href="#">국토종주 자전거길 관리</a></li>
+	                <li><a href="#">행사 안내</a></li>
 	                <li>
 	                    <a href="#">주변역사 안내</a>
 	                    <ul>                

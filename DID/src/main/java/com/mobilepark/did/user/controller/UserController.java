@@ -54,16 +54,16 @@ public class UserController {
 		return mv;
 	}
 	
-	@RequestMapping(value ="/user/insertForm.htm" , method = RequestMethod.POST)
+	@RequestMapping(value ="admin/user/insertForm.htm" , method = RequestMethod.POST)
 	public String insertForm(Model model,
 			@RequestParam(value = "curPage", defaultValue = "") String curPage) throws Exception
 	{
 		model.addAttribute("curPage", curPage);
 		
-		return "user/insert";
+		return "admin/user/insert";
 	}
 	
-	@RequestMapping(value = "/user/insert.htm", method = RequestMethod.POST, produces="text/html;charset=UTF-8")
+	@RequestMapping(value = "admin/user/insert.htm", method = RequestMethod.POST, produces="text/html;charset=UTF-8")
 	@ResponseBody
 	public String insert(Model model,@ModelAttribute("user") User user,
 			@RequestParam(value = "curPage", defaultValue = "") String curPage
@@ -88,7 +88,7 @@ public class UserController {
 		return msg;
 	}
 	
-	@RequestMapping(value = "/user/updateForm.htm")
+	@RequestMapping(value = "admin/user/updateForm.htm")
 	public ModelAndView updateForm(
 			@RequestParam(value = "id", required = false) String id,
 			@RequestParam(value = "curPage", required = false) String curPage) {
@@ -97,14 +97,14 @@ public class UserController {
 		user.setId(id);
 
 		ModelAndView mv = new ModelAndView();
-		mv.setViewName("user/view");
+		mv.setViewName("admin/user/view");
 		mv.addObject("user", userService.view(user));
 		mv.addObject("curPage", curPage);
 
 		return mv;
 	}
 	
-	@RequestMapping(value = "/user/update.htm", method = RequestMethod.POST, produces="text/html;charset=UTF-8")
+	@RequestMapping(value = "admin/user/update.htm", method = RequestMethod.POST, produces="text/html;charset=UTF-8")
 	@ResponseBody
 	public String update(Model model,@ModelAttribute("user") User user,
 			@RequestParam(value = "curPage", defaultValue = "") String curPage
@@ -122,6 +122,32 @@ public class UserController {
 				msg = Env.get("msg.user.update.succ");
 			else
 				msg = Env.get("msg.user.update.fail");
+		}catch(Exception e){
+			e.printStackTrace();
+			msg = Env.get("msg.user.exception");
+		}finally{
+		}
+		return msg;
+	}
+	
+	@RequestMapping(value = "admin/user/delete.htm", method = RequestMethod.POST, produces="text/html;charset=UTF-8")
+	@ResponseBody
+	public String delete(Model model,@ModelAttribute("user") User user,
+			@RequestParam(value = "curPage", defaultValue = "") String curPage
+			) throws Exception
+
+	{
+		String msg = "";
+		int ret = 0;
+		
+		try{
+			
+			ret = userService.delete(user);
+			
+			if (ret == 1)
+				msg = Env.get("msg.user.delete.succ");
+			else
+				msg = Env.get("msg.user.delete.fail");
 		}catch(Exception e){
 			e.printStackTrace();
 			msg = Env.get("msg.user.exception");

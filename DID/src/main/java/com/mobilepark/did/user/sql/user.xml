@@ -4,11 +4,13 @@
 <mapper namespace="user">
 	
 	<select id="list" parameterType="HashMap" resultType="User">
-		SELECT id, name, register_date 
-		FROM tbl_admin
+		SELECT id, name, register_date, update_date 
+		FROM tbl_admin ORDER BY register_date DESC
+		
 		<if test="pg != null and pg != ''">
 			LIMIT #{pg.startPoint}, #{pg.endPoint}
 		</if>
+		
 	</select>
 	
 	<select id="count" parameterType="java.util.HashMap" resultType="int">
@@ -34,8 +36,12 @@
 			<set>
 				<if test="password != null">password = #{password},</if>
 				<if test="name != null">name = #{name},</if>
-				<if test="update_date != null">update_date = sysdate()</if>
+				update_date = sysdate()
 			</set>
 		WHERE id = #{id}
 	</update>
+	
+	<delete id="delete" parameterType="User">
+		DELETE FROM tbl_admin WHERE id = #{id}
+	</delete>
 </mapper>

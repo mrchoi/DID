@@ -4,11 +4,17 @@
 <Script type="text/javascript">
 $(document).ready(function(){
 	if('${ADMIN_ID}' == '') {
-		$("#center").html("");
+		//$("#center").html("");
 		alert("로그인 후 이용해 주세요");
-		MovePage("admin/login.htm","");
+		//MovePage("admin/login.htm","");
+		location.href="index.htm";
 		return false;
 	}
+	
+	$("#registbt").click(function(){
+		MovePage("user/insertForm.htm","");
+	});
+	
 });
 
 	function goDetail(id){
@@ -37,6 +43,7 @@ $(document).ready(function(){
 					        <th>ID</th>
 					        <th>name</th>
 					        <th>등록일</th>
+					        <th>수정일</th>
 					    </tr> 
 					</thead>
 		    		<tbody> 
@@ -49,10 +56,11 @@ $(document).ready(function(){
 							</c:when>	
 							<c:otherwise>
 								<c:forEach items="${list}" var="user">
-									<tr align="center" onclick="javascript:goDetail('${user.id}');" style="cursor:hand">
-									   <td>${user.id}</td>
+									<tr align="center" >
+									   <td><a href="#" onclick="javascript:goDetail('${user.id}');" >${user.id}</a></td>
 									   <td>${user.name}</td>
 									   <td><fmt:formatDate value="${user.register_date}" pattern="yyyy-MM-dd" /></td>
+									   <td><fmt:formatDate value="${user.update_date}" pattern="yyyy-MM-dd" /></td>
 									</tr>			
 								</c:forEach>
 							</c:otherwise>					
@@ -63,15 +71,20 @@ $(document).ready(function(){
            </figure>
         </section>
         	
-			<c:if test="${pageHandler.numbPageUrlList.size() >1}"> 
-			<div align="center">
-				<input id="nextbt" type="button" value="Next"/>
-			</div>
-			</c:if>
-			
-			<div align="right">
-				<input id="registbt" type="button" value="Regist"/>
-			</div>	
+
+		<div align="center">
+		<c:if test="${pageHandler.curPage >=2}"> 
+			<input id="nextbt" type="button" value="Prev" onclick="javascript:goPage('${pageHandler.prevPage}');return false;"/>
+		</c:if>
+		<c:if test="${pageHandler.numbPageUrlList.size() >1}"> 
+			<input id="nextbt" type="button" value="Next" onclick="javascript:goPage('${pageHandler.nextPage}');return false;"/>
+		</c:if>
+		</div>
+		
+		
+		<div align="right">
+			<input id="registbt" type="button" value="Regist"/>
+		</div>	
     </article>	
 
 </form>

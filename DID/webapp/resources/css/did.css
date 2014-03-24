@@ -246,11 +246,6 @@ figcaption{
     font-weight: normal;            
 }
 
-#menu ul a:hover{
-    background: #fafafa;
-    color: #444;
-} 
-
 /*
 Pretty Table Styling
 CSS Tricks also has a nice writeup: http://css-tricks.com/feature-table-design/
@@ -388,4 +383,31 @@ color:#edebda;
 -webkit-box-shadow: rgba(0, 0, 0, .25) 0 1px 0px;
 -moz-box-shadow: rgba(0, 0, 0, .25) 0 1px 0px;
 box-shadow: rgba(0, 0, 0, .25) 0 1px 0px;
+}
+
+/***FIRST STYLE THE BUTTON***/
+input#deletebt {
+cursor:pointer; /*forces the cursor to change to a hand when the button is hovered*/
+padding:5px 25px; /*add some padding to the inside of the button*/
+background:#ff0000; /*the colour of the button*/
+border:1px solid #ff0000; /*required or the default border for the browser will appear*/
+/*give the button curved corners, alter the size as required*/
+-moz-border-radius: 10px;
+-webkit-border-radius: 10px;
+border-radius: 10px;
+/*give the button a drop shadow*/
+-webkit-box-shadow: 0 0 4px rgba(0,0,0, .75);
+-moz-box-shadow: 0 0 4px rgba(0,0,0, .75);
+box-shadow: 0 0 4px rgba(0,0,0, .75);
+/*style the text*/
+color:#f3f3f3;
+font-size:1.1em;
+}
+/***NOW STYLE THE BUTTON'S HOVER AND FOCUS STATES***/
+input#deletebt:hover, input#deletebt:focus {
+background-color :#ff0000; /*make the background a little darker*/
+/*reduce the drop shadow size to give a pushed button effect*/
+-webkit-box-shadow: 0 0 1px rgba(0,0,0, .75);
+-moz-box-shadow: 0 0 1px rgba(0,0,0, .75);
+box-shadow: 0 0 1px rgba(0,0,0, .75);
 }
