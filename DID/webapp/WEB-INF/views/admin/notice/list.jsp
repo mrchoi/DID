@@ -9,6 +9,10 @@ $(document).ready(function(){
 		MovePage("admin/login.htm","");
 		return false;
 	}
+	
+	$("#registbt").click(function(){
+		MovePage("user/insertForm.htm","");
+	});
 });
 
 	function goDetail(id){
