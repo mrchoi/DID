@@ -5,7 +5,7 @@
 <mapper namespace="notice">
 	
 	<select id="list" parameterType="HashMap" resultType="Notice">
-		SELECT kind, title, contents, id, status, register_date 
+		SELECT sequence, kind, title, contents, id, status, register_date 
 		FROM tbl_notice
 		<if test="pg != null and pg != ''">
 			LIMIT #{pg.startPoint}, #{pg.endPoint}
@@ -16,5 +16,34 @@
 		SELECT count(*)
 		FROM tbl_notice
 	</select>
+	
+	<insert id="insert" parameterType="Notice">
+		INSERT INTO tbl_notice
+		( 	title,  contents, id, kind, status, register_date) 
+		VALUES
+		(#{title}, #{contents}, #{id}, #{kind}, #{status}, sysdate()) 
+		
+		<selectKey keyProperty="sequence" resultType="Integer" order="AFTER">
+	    	SELECT LAST_INSERT_ID()
+		</selectKey>
+	</insert>
+	
+	<update id="update" parameterType="Notice">
+		UPDATE tbl_notice
+			<set>
+				<if test="name != null">title = #{title},</if>
+				<if test="status != null">status = #{status},</if>
+				<if test="contents != null">contents = #{contents},</if>
+				update_date = sysdate()
+			</set>
+		WHERE sequence = #{sequence}
+	</update>
+	
+	<delete id="delete" parameterType="Notice">
+		DELETE FROM tbl_notice
+		<where>
+			sequence = #{sequence}
+		</where>
+	</delete>
 	
 </mapper>

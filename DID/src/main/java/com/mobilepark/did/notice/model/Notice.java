@@ -10,6 +10,7 @@ public class Notice implements Serializable {
 	
 	private static final long serialVersionUID = 1L;
 
+	private int sequence;
 	private String id;
 	private String title;
 	private String contents;
@@ -18,6 +19,14 @@ public class Notice implements Serializable {
 
 	private Date register_date;
 	private Date update_date;
+	
+	public int getSequence() {
+		return sequence;
+	}
+
+	public void setSequence(int sequence) {
+		this.sequence = sequence;
+	}
 
 	public String getId() {
 		return id;

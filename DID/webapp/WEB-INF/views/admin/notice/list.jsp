@@ -11,7 +11,7 @@ $(document).ready(function(){
 	}
 	
 	$("#registbt").click(function(){
-		MovePage("user/insertForm.htm","");
+		MovePage("notice/insertForm.htm","");
 	});
 });
 
@@ -29,8 +29,9 @@ $(document).ready(function(){
 	}
 </Script>
 <form name="sendForm" id="sendForm" method="post">
-<input type="hidden" name="id" id="id"/>
+<input type="hidden" name="id" id="id" value="${ADMIN_ID}"/>
 <input type="hidden" name="curPage" id="curPage" value="${pageHandler.curPage}"/>
+
 	<article>
 		<section>
        	<h1>키오스크 매니저 -> 목록</h1>
@@ -55,12 +56,13 @@ $(document).ready(function(){
 								</tr>
 							</c:when>	
 							<c:otherwise>
-								<c:forEach items="${list}" var="notice">
-									<tr align="center" onclick="javascript:goDetail('${notice.id}');" style="cursor:hand">
-									   <td>${notice.id}</td>
+								<c:forEach items="${list}" var="notice" varStatus="status">
+								
+									<tr align="center">
+									   <td>${status.count}</td>
 									   <td>${notice.kind}</td>
-									   <td>${notice.title}</td>
-									   <td>${notice.status}</td>
+									   <td onclick="javascript:goDetail('${notice.sequence}');" style="cursor:hand">${notice.title}</td>
+									   <td><c:if test="${notice.status=='0'}">실행</c:if><c:if test="${notice.status=='1'}">종료</c:if></td>
 									   <td>${notice.id}</td>
 									   <td><fmt:formatDate value="${notice.register_date}" pattern="yyyy-MM-dd" /></td>
 									</tr>			
