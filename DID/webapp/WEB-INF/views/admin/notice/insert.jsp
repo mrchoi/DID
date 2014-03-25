@@ -44,7 +44,12 @@ $(document).ready(function(){
 						<tbody>
 							<tr class="underline">
 								<th scope="row"><label for="kind">키오스크 단말</label></th>
-								<td><input type="text" id="kind" name="kind" class="i_text">
+								<td>
+									<select name="kind" id="kind">
+										<option value="reg0001">키오스크1</option>
+										<option value="reg0002">키오스크2</option>
+										<option value="reg0003">키오스크3</option>
+									</select>
 								</td>
 							</tr>
 							<tr class="underline">
@@ -63,7 +68,7 @@ $(document).ready(function(){
 								<td>
 									<select name="status" id="status">
 										<option value="1">실행</option>
-										<option value="2">종료</option>
+										<option value="0">종료</option>
 									</select>
 								</td>
 							</tr>

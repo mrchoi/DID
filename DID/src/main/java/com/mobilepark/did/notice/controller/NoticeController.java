@@ -2,6 +2,8 @@ package com.mobilepark.did.notice.controller;
 
 import java.util.HashMap;
 
+import javax.servlet.http.HttpSession;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,7 +31,7 @@ public class NoticeController {
 	private NoticeService noticeService;
 	
 	@RequestMapping(value = "admin/notice/list.htm")
-	public ModelAndView list(
+	public ModelAndView list(HttpSession session,
 			@RequestParam(value = "curPage", defaultValue = "") String curPage) {
 
 		HashMap<String, Object> hash = new HashMap<String, Object>();
@@ -48,7 +50,8 @@ public class NoticeController {
 		mv.setViewName("admin/notice/list");
 		mv.addObject("list", noticeService.list(hash));
 		mv.addObject("pageHandler", pg);
-
+		mv.addObject("ADMIN_ID", session.getAttribute("ADMIN_ID"));
+		
 		return mv;
 	}
 	

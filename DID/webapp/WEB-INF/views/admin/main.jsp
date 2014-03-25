@@ -111,10 +111,10 @@ function ProcessPage(url, data, re_url) {
 	        <nav>
 	            <ul id="menu">
 	                <li><a href="#" onclick="javascript:MovePage('user/list.htm','');">Admin 관리</a></li>
-	                <li><a href="#">국토종주 자전거길 관리</a></li>
-	                <li><a href="#">행사 안내</a></li>
+	                <!-- <li><a href="#">국토종주 자전거길 관리</a></li> -->
+	                <li><a href="#">축제/행사 안내</a></li>
 	                <li>
-	                    <a href="#">주변역사 안내</a>
+	                    <a href="#">종주길주변편의시설안내</a>
 	                    <ul>                
 	                        <li><a href="#">관광지 관리</a></li>
 	                        <li><a href="#">음식점 관리</a></li>
@@ -125,7 +125,7 @@ function ProcessPage(url, data, re_url) {
 	                    </ul>        
 	                </li>
 	                <li>
-	                    <a href="#">편의시설 안내</a>
+	                    <a href="#">공공시설및부대시설안내</a>
 	                    <ul>
 	                        <li><a href="#">자전거 대여소 관리</a></li>
 	                        <li><a href="#">화장실 관리</a></li>
@@ -137,9 +137,9 @@ function ProcessPage(url, data, re_url) {
 	                    </ul>
 	                </li>
 	                <li>
-	                    <a href="#">단말 관리</a>
+	                    <a href="#">키오스크 관리</a>
 	                    <ul>
-	                        <li><a href="#">키오스트 단말</a></li>
+	                        <li><a href="#" onclick="javascript:MovePage('kiosk/list.htm','');">키오스트 단말</a></li>
 	                        <li><a href="#">키오스크 모니터링</a></li>
 	                        <li><a href="#" onclick="javascript:MovePage('notice/list.htm','');">키오스크 매니저</a></li>
 	                        <!-- <li><a href="#">메니저 관리</a></li> 
