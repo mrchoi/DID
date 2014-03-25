@@ -257,7 +257,7 @@
 				<artifactId>maven-war-plugin</artifactId>
 				<version>2.2</version>
 				<configuration>
-					<warName>uxcutor</warName>
+					<warName>Root</warName>
 					<warSourceDirectory>webapp</warSourceDirectory>
 				</configuration>
 			</plugin>
