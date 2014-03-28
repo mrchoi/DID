@@ -4,7 +4,7 @@
 <mapper namespace="user">
 	
 	<select id="list" parameterType="HashMap" resultType="User">
-		SELECT id, name, register_date, update_date 
+		SELECT id, name, tel,register_date, update_date 
 		FROM tbl_admin ORDER BY register_date DESC
 		
 		<if test="pg != null and pg != ''">
@@ -19,16 +19,16 @@
 	</select>
 	
 	<select id="view" parameterType="User" resultType="User">
-		SELECT id, name, register_date, update_date
+		SELECT id, name, tel, register_date, update_date
 		FROM tbl_admin
 		WHERE id = #{id} 
 	</select>	
 	
 	<insert id="insert" parameterType="User">
 		INSERT INTO tbl_admin
-		( 	id,  password, name, register_date) 
+		( 	id,  password, name, tel,register_date) 
 		VALUES
-		(#{id}, #{password}, #{name}, sysdate()) 
+		(#{id}, #{password}, #{name}, #{tel}, sysdate()) 
 	</insert>
 
 	<update id="update" parameterType="User">
@@ -36,6 +36,7 @@
 			<set>
 				<if test="password != null">password = #{password},</if>
 				<if test="name != null">name = #{name},</if>
+				<if test="tel != null">tel = #{tel},</if>
 				update_date = sysdate()
 			</set>
 		WHERE id = #{id}

@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN" "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+
+<mapper namespace="info">
+	
+	<select id="list" parameterType="HashMap" resultType="Info">
+		SELECT sequence, category, title, contents, file_url, location, id, register_date 
+		FROM tbl_info WHERE category = #{category} 
+		<if test="pg != null and pg != ''">
+			LIMIT #{pg.startPoint}, #{pg.endPoint}
+		</if>
+	</select>
+	
+	<select id="count" parameterType="java.util.HashMap" resultType="int">
+		SELECT count(*)
+		FROM tbl_info WHERE category = #{category}
+	</select>
+	
+	<insert id="insert" parameterType="Info">
+		INSERT INTO tbl_info
+		( 	title,  contents, category, file_url, location, id, register_date) 
+		VALUES
+		(#{title}, #{contents}, #{category}, #{file_url}, #{location},#{id}, sysdate()) 
+		
+		<selectKey keyProperty="sequence" resultType="Integer" order="AFTER">
+	    	SELECT LAST_INSERT_ID()
+		</selectKey>
+	</insert>
+	
+	<select id="view" parameterType="Info" resultType="Info">
+		SELECT sequence, category, title, contents, file_url, location, id, register_date,update_date
+		FROM tbl_info
+		WHERE sequence = #{sequence} 
+	</select>	
+	
+	<update id="update" parameterType="Info">
+		UPDATE tbl_info
+			<set>
+				<if test="title != null">title = #{title},</if>
+				<if test="location != null">location = #{location},</if>
+				<if test="file_url != null">file_url = #{file_url},</if>
+				<if test="contents != null">contents = #{contents},</if>
+				update_date = sysdate()
+			</set>
+		WHERE sequence = #{sequence}
+	</update>
+	
+	<delete id="delete" parameterType="Info">
+		DELETE FROM tbl_info
+		<where>
+			sequence = #{sequence}
+		</where>
+	</delete>
+</mapper>

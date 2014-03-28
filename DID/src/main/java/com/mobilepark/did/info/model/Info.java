@@ -1,4 +1,4 @@
-package com.mobilepark.did.notice.model;
+package com.mobilepark.did.info.model;
 
 import java.io.Serializable;
 import java.util.Date;
@@ -6,16 +6,17 @@ import java.util.Date;
 import org.apache.commons.lang.builder.ToStringBuilder;
 import org.apache.commons.lang.builder.ToStringStyle;
 
-public class Notice implements Serializable {
+public class Info implements Serializable {
 	
 	private static final long serialVersionUID = 1L;
 
 	private int sequence;
-	private String id;
+	private String category;
 	private String title;
 	private String contents;
-	private String kind;
-	private String status;
+	private String file_url;
+	private String location;
+	private String id;
 
 	private Date register_date;
 	private Date update_date;
@@ -28,12 +29,12 @@ public class Notice implements Serializable {
 		this.sequence = sequence;
 	}
 
-	public String getId() {
-		return id;
+	public String getCategory() {
+		return category;
 	}
 
-	public void setId(String id) {
-		this.id = id;
+	public void setCategory(String category) {
+		this.category = category;
 	}
 
 	public String getTitle() {
@@ -52,20 +53,28 @@ public class Notice implements Serializable {
 		this.contents = contents;
 	}
 	
-	public String getKind() {
-		return kind;
+	public String getFile_url() {
+		return file_url;
 	}
 
-	public void setKind(String kind) {
-		this.kind = kind;
+	public void setFile_url(String file_url) {
+		this.file_url = file_url;
 	}
 	
-	public String getStatus() {
-		return status;
+	public String getLocation() {
+		return location;
 	}
 
-	public void setStatus(String status) {
-		this.status = status;
+	public void setLocation(String location) {
+		this.location = location;
+	}
+	
+	public String getId() {
+		return id;
+	}
+
+	public void setId(String id) {
+		this.id = id;
 	}
 
 	public Date getRegister_date() {

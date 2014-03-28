@@ -56,11 +56,11 @@ $(document).ready(function(){
 			return false;
 		}
 		
-		/* if($("#chk").val()==""){
+		/*if($("#chk").val()==""){
 			alert("아이디 중복체크를 확인하여 주시기 바랍니다.");
 			$("#id").focus();
 			return false;		
-		}	 */
+		}	*/
 
 		ProcessPage("user/insert.htm",data,"user/list.htm");
 	});
@@ -88,7 +88,7 @@ $(document).ready(function(){
 	<input type="hidden" name="curPage" id="curPage" value="${curPage}"/>
 	<article>
 			<section>
-	       	<h1>Admin 정보 등록</h1>
+	       	<h1>Admin 관리 -> Admin 정보 등록</h1>
 	           <figure>			
 					<table summary="Admin 정보 등록">						
 						<colgroup>
@@ -118,6 +118,11 @@ $(document).ready(function(){
 								<th scope="row"><label for="name">이름</label></th>
 								<td><input type="text" id="name" name="name" title="이름" class="i_text" maxlength="16">
 								* 필수 항목입니다.
+								</td>
+							</tr>
+							<tr class="underline">
+								<th scope="row"><label for="tel">전화번호</label></th>
+								<td><input type="text" id="tel" name="tel" title="전화번호" class="i_text" maxlength="16">
 								</td>
 							</tr>
 						</tbody>

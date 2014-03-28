@@ -35,15 +35,15 @@ $(document).ready(function(){
 <input type="hidden" name="curPage" id="curPage" value="${pageHandler.curPage}"/>
 	<article>
 		<section>
-       	<h1>Admin 관리</h1>
+       	<h1>Admin 관리 -> Admin 정보 목록 </h1>
            <figure>
            	<table>
 					<thead>
 						 <tr align="center">
 					        <th>ID</th>
 					        <th>name</th>
+					        <th>전화번호</th>
 					        <th>등록일</th>
-					        <th>수정일</th>
 					    </tr> 
 					</thead>
 		    		<tbody> 
@@ -59,8 +59,8 @@ $(document).ready(function(){
 									<tr align="center" >
 									   <td><a href="#" onclick="javascript:goDetail('${user.id}');" >${user.id}</a></td>
 									   <td>${user.name}</td>
+									   <td>${user.tel}</td>
 									   <td><fmt:formatDate value="${user.register_date}" pattern="yyyy-MM-dd" /></td>
-									   <td><fmt:formatDate value="${user.update_date}" pattern="yyyy-MM-dd" /></td>
 									</tr>			
 								</c:forEach>
 							</c:otherwise>					

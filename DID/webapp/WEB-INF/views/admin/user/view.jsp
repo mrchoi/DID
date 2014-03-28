@@ -80,7 +80,7 @@ $(document).ready(function(){
 	<input type="hidden" name="id" id="id" value="${user.id}" />
 	<article>
 			<section>
-	       	<h1>Admin 정보 수정</h1>
+	       	<h1>Admin 관리 -> Admin 정보 수정</h1>
 	           <figure>			
 					<table summary="Admin 정보 수정">						
 						<colgroup>
@@ -109,6 +109,11 @@ $(document).ready(function(){
 								<th scope="row"><label for="name">이름</label></th>
 								<td><input type="text" id="name" name="name" title="이름" class="i_text" maxlength="16" value="${user.name}">
 								* 필수 항목입니다.
+								</td>
+							</tr>
+							<tr class="underline">
+								<th scope="row"><label for="tel">전화번호</label></th>
+								<td><input type="text" id="tel" name="tel" title="전화번호" class="i_text" maxlength="16" value="${user.tel}">
 								</td>
 							</tr>
 						</tbody>

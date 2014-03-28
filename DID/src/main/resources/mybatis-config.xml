@@ -20,15 +20,17 @@
 		<typeAlias alias="hashmap" type="java.util.HashMap"/>
 		
 		<typeAlias alias="User" type="com.mobilepark.did.user.model.User"/>
-		<typeAlias alias="Notice" type="com.mobilepark.did.notice.model.Notice"/>
+		<typeAlias alias="Info" type="com.mobilepark.did.info.model.Info"/>
 		<typeAlias alias="Kiosk" type="com.mobilepark.did.kiosk.model.Kiosk"/>
+		<typeAlias alias="Qrcode" type="com.mobilepark.did.qrcode.model.Qrcode"/>
 	</typeAliases>
 	
 	<mappers>		
 		<mapper resource="com/mobilepark/did/login/sql/login.xml"/>
 		<mapper resource="com/mobilepark/did/user/sql/user.xml"/>	
-		<mapper resource="com/mobilepark/did/notice/sql/Notice.xml"/>
+		<mapper resource="com/mobilepark/did/info/sql/Info.xml"/>
 		<mapper resource="com/mobilepark/did/kiosk/sql/Kiosk.xml"/>
+		<mapper resource="com/mobilepark/did/qrcode/sql/Qrcode.xml"/>
 	</mappers>
 
 </configuration>

@@ -13,6 +13,7 @@ public class User implements Serializable {
 	private String id;
 	private String password;
 	private String name;
+	private String tel;
 
 	private Date register_date;
 	private Date update_date;
@@ -39,6 +40,14 @@ public class User implements Serializable {
 
 	public void setName(String name) {
 		this.name = name;
+	}
+	
+	public String getTel() {
+		return tel;
+	}
+
+	public void setTel(String tel) {
+		this.tel = tel;
 	}
 
 	public Date getRegister_date() {

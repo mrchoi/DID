@@ -51,5 +51,9 @@
 	
 	<bean id="messageSourceAccessor" class="org.springframework.context.support.MessageSourceAccessor"
 		c:messageSource-ref="messageSource"/>
+		
+	<bean id="multipartResolver"
+        class="org.springframework.web.multipart.commons.CommonsMultipartResolver"
+        p:maxUploadSize="8000000000"/>
 
 </beans>

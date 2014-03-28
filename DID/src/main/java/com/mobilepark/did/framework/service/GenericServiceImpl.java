@@ -37,6 +37,10 @@ public abstract class GenericServiceImpl<M extends Serializable> implements Gene
 		
 		return this.getGenericDao().delete(model);
 	}
+	
+	public List<M> festivalList(Map<String, Object> paramMap) {
+		return this.getGenericDao().festivalList(paramMap);
+	}
 
 	public M view(M model) {
 		return this.getGenericDao().view(model);

@@ -112,40 +112,41 @@ function ProcessPage(url, data, re_url) {
 	            <ul id="menu">
 	                <li><a href="#" onclick="javascript:MovePage('user/list.htm','');">Admin 관리</a></li>
 	                <!-- <li><a href="#">국토종주 자전거길 관리</a></li> -->
-	                <li><a href="#">축제/행사 안내</a></li>
+	                <li><a href="#" onclick="javascript:MovePage('info/list.htm?category=200','');">축제/행사 안내</a></li>
 	                <li>
 	                    <a href="#">종주길주변편의시설안내</a>
 	                    <ul>                
-	                        <li><a href="#">관광지 관리</a></li>
-	                        <li><a href="#">음식점 관리</a></li>
-	                        <li><a href="#">숙박시설 관리</a></li>
-	                        <li><a href="#">특산품 판매점 관리</a></li> 
-	                        <li><a href="#">대중교통 관리</a></li> 
-	                        <li><a href="#">관공서 관리</a></li>                      
+	                        <li><a href="#" onclick="javascript:MovePage('info/list.htm?category=001','');">관광지 관리</a></li>
+	                        <li><a href="#" onclick="javascript:MovePage('info/list.htm?category=002','');">음식점 관리</a></li>
+	                        <li><a href="#" onclick="javascript:MovePage('info/list.htm?category=003','');">숙박시설 관리</a></li>
+	                        <li><a href="#" onclick="javascript:MovePage('info/list.htm?category=004','');">특산품 판매점 관리</a></li> 
+	                        <li><a href="#" onclick="javascript:MovePage('info/list.htm?category=005','');">대중교통 관리</a></li> 
+	                        <li><a href="#" onclick="javascript:MovePage('info/list.htm?category=006','');">관공서 관리</a></li>                      
 	                    </ul>        
 	                </li>
 	                <li>
 	                    <a href="#">공공시설및부대시설안내</a>
 	                    <ul>
-	                        <li><a href="#">자전거 대여소 관리</a></li>
-	                        <li><a href="#">화장실 관리</a></li>
-	                        <li><a href="#">쉼터 관리</a></li>
-	                        <li><a href="#">인증센터 관리</a></li> 
-	                        <li><a href="#">자전거샾 관리</a></li>  
-	                        <li><a href="#">병원,약국 관리</a></li>
-	                        <li><a href="#">음수대 관리</a></li>                
+	                        <li><a href="#" onclick="javascript:MovePage('info/list.htm?category=100','');">자전거 대여소 관리</a></li>
+	                        <li><a href="#" onclick="javascript:MovePage('info/list.htm?category=101','');">화장실 관리</a></li>
+	                        <li><a href="#" onclick="javascript:MovePage('info/list.htm?category=102','');">쉼터 관리</a></li>
+	                        <li><a href="#" onclick="javascript:MovePage('info/list.htm?category=103','');">인증센터 관리</a></li> 
+	                        <li><a href="#" onclick="javascript:MovePage('info/list.htm?category=104','');">자전거샾 관리</a></li>  
+	                        <li><a href="#" onclick="javascript:MovePage('info/list.htm?category=105','');">병원,약국 관리</a></li>
+	                        <li><a href="#" onclick="javascript:MovePage('info/list.htm?category=106','');">음수대 관리</a></li>                
 	                    </ul>
 	                </li>
 	                <li>
-	                    <a href="#">키오스크 관리</a>
-	                    <ul>
-	                        <li><a href="#" onclick="javascript:MovePage('kiosk/list.htm','');">키오스트 단말</a></li>
+	                    <a href="#" onclick="javascript:MovePage('kiosk/list.htm','');">키오스크 관리</a>
+	                    <!-- <ul>
+	                        <li><a href="#" onclick="javascript:MovePage('kiosk/list.htm','');">키오스크</a></li>
 	                        <li><a href="#">키오스크 모니터링</a></li>
 	                        <li><a href="#" onclick="javascript:MovePage('notice/list.htm','');">키오스크 매니저</a></li>
-	                        <!-- <li><a href="#">메니저 관리</a></li> 
-	                        <li><a href="#">시스템 캐시 관리</a></li>  -->	                                      
-	                    </ul>
-	                </li>	                               
+	                        <li><a href="#">메니저 관리</a></li> 
+	                        <li><a href="#">시스템 캐시 관리</a></li>                                   
+	                    </ul> -->	    
+	                </li>
+	                <li><a href="#" onclick="javascript:MovePage('qrcode/list.htm','');">QR코드 관리</a></li>                          
 	            </ul>
 	        </nav>
 	    </aside>

@@ -18,5 +18,7 @@ public interface GenericDao<M extends Serializable> {
 	
 	int delete(M model);
 	
+	List<M> festivalList(Map<String, Object> paramMap);
+	
 	M view(M model);
 }

@@ -36,6 +36,10 @@ public abstract class GenericDaoImpl<M extends Serializable> extends SqlSessionD
 	public int delete(M model) {
 		return super.getSqlSession().delete(sqlModel+".delete", model);
 	}
+	
+	public List<M> festivalList(Map<String, Object> paramMap) {
+		return super.getSqlSession().selectList(sqlModel+".festivalList", paramMap);
+	}
 
 	public M view(M model) {
 		return super.getSqlSession().selectOne(sqlModel+".view", model);
