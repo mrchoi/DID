@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN" "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+
+<mapper namespace="kiosk">
+	
+	<select id="list" parameterType="HashMap" resultType="Kiosk">
+		SELECT sequence, kiosk, location, ip, status, obstacle_contents, obstacle_status, schedule_start,schedule_end,register_date 
+		FROM tbl_kiosk
+		<if test="pg != null and pg != ''">
+			LIMIT #{pg.startPoint}, #{pg.endPoint}
+		</if>
+	</select>
+	
+	<select id="count" parameterType="java.util.HashMap" resultType="int">
+		SELECT count(*)
+		FROM tbl_kiosk
+	</select>
+	
+	<insert id="insert" parameterType="Kiosk">
+		INSERT INTO tbl_kiosk
+		(kiosk, location, ip, obstacle_contents,schedule_start,schedule_end,register_date) 
+		VALUES
+		(#{kiosk}, #{location}, #{ip},#{obstacle_contents},#{schedule_start},#{schedule_end}, sysdate()) 
+		
+		<selectKey keyProperty="sequence" resultType="Integer" order="AFTER">
+	    	SELECT LAST_INSERT_ID()
+		</selectKey>
+	</insert>
+	
+	<select id="view" parameterType="Kiosk" resultType="Kiosk">
+		SELECT sequence, kiosk, location, ip, status, obstacle_contents, obstacle_status, schedule_start,schedule_end,register_date,update_date
+		FROM tbl_kiosk
+		WHERE sequence = #{sequence}
+	</select>
+	
+	<update id="update" parameterType="Kiosk">
+		UPDATE tbl_kiosk
+			<set>
+				<if test="location != null">location = #{location},</if>
+				<if test="status != null">status = #{status},</if>
+				<if test="ip != null">ip = #{ip},</if>
+				<if test="obstacle_contents != null">obstacle_contents = #{obstacle_contents},</if>
+				<if test="schedule_start != null">schedule_start = #{schedule_start},</if>
+				<if test="schedule_end != null">schedule_end = #{schedule_end},</if>
+				update_date = sysdate()
+			</set>
+		WHERE sequence = #{sequence}
+	</update>
+	
+	<delete id="delete" parameterType="Kiosk">
+		DELETE FROM tbl_kiosk
+		<where>
+			sequence = #{sequence}
+		</where>
+	</delete>
+	
+</mapper>

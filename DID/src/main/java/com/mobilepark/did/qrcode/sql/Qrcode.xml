@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN" "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+
+<mapper namespace="qrcode">
+	
+	<select id="list" parameterType="HashMap" resultType="Qrcode">
+		SELECT sequence, title, file_url, info_sequence, id, register_date 
+		FROM tbl_qrcode
+		<if test="pg != null and pg != ''">
+			LIMIT #{pg.startPoint}, #{pg.endPoint}
+		</if>
+	</select>
+	
+	<select id="count" parameterType="java.util.HashMap" resultType="int">
+		SELECT count(*)
+		FROM tbl_qrcode
+	</select>
+	
+	<insert id="insert" parameterType="Qrcode">
+		INSERT INTO tbl_qrcode
+		( 	title, file_url, info_sequence, id, register_date ) 
+		VALUES
+		(#{title}, #{file_url}, #{info_sequence}, #{id}, sysdate()) 
+		
+		<selectKey keyProperty="sequence" resultType="Integer" order="AFTER">
+	    	SELECT LAST_INSERT_ID()
+		</selectKey>
+	</insert>
+	
+	<select id="view" parameterType="Qrcode" resultType="Qrcode">
+		SELECT sequence, title, file_url, info_sequence, id, register_date,update_date
+		FROM tbl_qrcode
+		WHERE sequence = #{sequence} 
+	</select>
+	
+	<update id="update" parameterType="Qrcode">
+		UPDATE tbl_qrcode
+			<set>
+				<if test="title != null">title = #{title},</if>
+				<if test="info_sequence != null">info_sequence = #{info_sequence},</if>
+				<if test="file_url != null">file_url = #{file_url},</if>
+				update_date = sysdate()
+			</set>
+		WHERE sequence = #{sequence}
+	</update>
+	
+	<delete id="delete" parameterType="Qrcode">
+		DELETE FROM tbl_qrcode
+		<where>
+			sequence = #{sequence}
+		</where>
+	</delete>
+	
+	<select id="festivalList" parameterType="HashMap" resultType="Qrcode">
+		SELECT sequence, title
+		FROM tbl_info WHERE category='200'
+	</select>
+</mapper>
