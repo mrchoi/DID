@@ -13,8 +13,10 @@ public class Qrcode implements Serializable {
 	private int sequence;
 	private String title;
 	private String file_url;
+	private String qrcode_url;
 	private int info_sequence;
 	private String id;
+	private String info_title;
 
 	private Date register_date;
 	private Date update_date;
@@ -51,12 +53,28 @@ public class Qrcode implements Serializable {
 		this.file_url = file_url;
 	}
 	
+	public String getQrcode_url() {
+		return qrcode_url;
+	}
+
+	public void setQrcode_url(String qrcode_url) {
+		this.qrcode_url = qrcode_url;
+	}
+	
 	public String getId() {
 		return id;
 	}
 
 	public void setId(String id) {
 		this.id = id;
+	}
+	
+	public String getInfo_title() {
+		return info_title;
+	}
+
+	public void setInfo_title(String info_title) {
+		this.info_title = info_title;
 	}
 
 	public Date getRegister_date() {

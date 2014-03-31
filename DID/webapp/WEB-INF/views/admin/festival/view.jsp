@@ -8,8 +8,6 @@ $(document).ready(function(){
 	$("#registbt").click(function(){
 		$("#auth").val();
 		
-		var data = $("#scForm").serializeArray();
-		
 		$("#scForm").ajaxSubmit({
 			success : function(data){
 				alert(data);
@@ -21,7 +19,6 @@ $(document).ready(function(){
 				return false;
 			}
 	 	});
-		//ProcessPage("info/update.htm",data,"info/list.htm");
 	});
 	
 	$("#nextbt").click(function(){
@@ -59,8 +56,10 @@ $(document).ready(function(){
 								</td>
 							</tr>
 							<tr class="underline">
-								<th scope="row"><label for="file_url">위치정보</label></th>
-								<td><input type="file" id="file_url" name="file_url" multiple="" />
+								<th scope="row"><label for="imgFile">위치정보</label></th>
+								<td>${info.file_url}
+								<br>
+								<input type="file" id="imgFile" name="imgFile" size="40"/>
 								</td>
 							</tr>
 						</tbody>

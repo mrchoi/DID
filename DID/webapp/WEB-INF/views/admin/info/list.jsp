@@ -35,34 +35,10 @@ $(document).ready(function(){
 			return false;
 		}
 		$("#location").val(addr);
-		//window.open('info/popup.htm?location='+addr,'width=650,height=450');
 		
 		popUp($("#locationForm"), "info/popup.htm");
 	}
 	
-	function popUp(formName, url) {
-		  var screenSizeWidth,screenSizeHeight;
-		  if (self.screen) { 
-		   screenSizeWidth = screen.width ;  
-		   screenSizeHeight = screen.height;
-		  }  
-
-		  intWidth = screenSizeWidth;
-		  intHeight = screenSizeHeight;
-		  intXOffset = 0 ;
-		  intYOffset = 0 ;
-
-		   obwindow = window.open("","popup", "toolbar=no, location=no, directories=no, status=0, menubar=no, scrollbars=1,resizable=1") ;
-		   obwindow.resizeTo(intWidth, intHeight) ;
-		   obwindow.moveTo(intXOffset, intYOffset);
-		
-			formName.attr({
-				action : url,
-				method : "POST",
-				target : "popup"
-			}).submit();
-
-	}
 </Script>
 <form name="locationForm" id="locationForm" method="post">
 	<input type="hidden" name="location" id="location"/>
@@ -115,16 +91,29 @@ $(document).ready(function(){
 				</table>						
            </figure>
         </section>
-        	
-			<c:if test="${pageHandler.numbPageUrlList.size() >1}"> 
-			<div align="center">
-				<input id="nextbt" type="button" value="Next"/>
-			</div>
-			</c:if>
-			
-			<div align="right">
-				<input id="registbt" type="button" value="Regist"/>
-			</div>	
+        
+        <c:if test="${pageHandler.numbPageUrlList.size() > 0}"> 
+		<div align="center" class="paginate">
+			<a href="#" class="pre_end" onclick="javascript:goPage('${pageHandler.startPage}');return false;">처음</a>
+			<a href="#" class="pre" onclick="javascript:goPage('${pageHandler.prevPage}');return false;">이전</a>
+			<c:forEach items="${pageHandler.numbPageUrlList}" var="numbPageList">
+				<c:choose>
+					<c:when test="${pageHandler.curPage == numbPageList.pageNumb}">
+						<strong>${numbPageList.pageNumb}</strong>
+					</c:when>
+					<c:otherwise>
+						<a href="#" onclick="javascript:goPage('${numbPageList.pageNumb}');return false;">${numbPageList.pageNumb}</a>
+					</c:otherwise>
+				</c:choose>
+			</c:forEach>
+			<a href="#" class="next" onclick="javascript:goPage('${pageHandler.nextPage}');return false;">다음</a>
+			<a href="#" class="next_end" onclick="javascript:goPage('${pageHandler.endPage}');return false;">끝</a>
+		</div>
+		</c:if>
+		
+		<div align="right">
+			<input id="registbt" type="button" value="Regist"/>
+		</div>	
     </article>	
 
 </form>

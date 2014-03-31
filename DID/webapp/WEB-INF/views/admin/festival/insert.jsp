@@ -15,7 +15,7 @@ $(document).ready(function(){
 			return false;
 		}
 		
-		if($("#img_file").val() == ""){
+		if($("#imgFile").val() == ""){
 			//alert("위치정보 이미지 파일을 입력하세요!");
 			//return false;
 		}
@@ -26,7 +26,8 @@ $(document).ready(function(){
 				var data = $("#scForm").serializeArray();
 				MovePage("info/list.htm",data);
 			},
-			error : function(){
+			error : function(e){
+				//alert(e.description);
 				alert("시스템 에러 입니다. 관리자에게 문의 하세요");
 				return false;
 			}
@@ -62,8 +63,8 @@ $(document).ready(function(){
 								</td>
 							</tr>
 							<tr class="underline">
-								<th scope="row"><label for="img_file">위치정보</label></th>
-								<td><input type="file" id="img_file" name="img_file" multiple=""/>
+								<th scope="row"><label for="imgFile">위치정보</label></th>
+								<td><input type="file" id="imgFile" name="imgFile" size="40"/>
 								</td>
 							</tr>
 						</tbody>

@@ -7,8 +7,7 @@
 $(document).ready(function(){
 	$("#registbt").click(function(){
 		$("#auth").val();
-		var data = $("#scForm").serializeArray();
-		
+				
 		if($("#title").val()==""){
 			alert("${CategoryName}을 입력하여 주시기 바랍니다.");
 			$("#title").focus();
@@ -26,9 +25,19 @@ $(document).ready(function(){
 			alert("내용을 입력하여 주시기 바랍니다.");
 			$("#contents").focus();
 			return false;
-		} 
-
-		ProcessPage("info/insert.htm",data,"info/list.htm");
+		}
+		
+		$("#scForm").ajaxSubmit({
+			success : function(data){
+				alert(data);
+				var data = $("#scForm").serializeArray();
+				MovePage("info/list.htm",data);
+			},
+			error : function(e){
+				alert("시스템 에러 입니다. 관리자에게 문의 하세요");
+				return false;
+			}
+	 	});
 	});
 	
 	$("#nextbt").click(function(){
@@ -38,7 +47,7 @@ $(document).ready(function(){
 });
 
 </script>
-<form name="scForm" id="scForm">
+<form name="scForm" id="scForm" method="post" enctype="multipart/form-data" action="info/insert.htm">
 	<input type="hidden" name="curPage" id="curPage" value="${curPage}"/>
 	<input type="hidden" name="category" id="category" value="${category}"/>
 	<input type="hidden" name="id" id="id" value="${ADMIN_ID}"/>
@@ -52,16 +61,6 @@ $(document).ready(function(){
 						<col width="120"><col>
 						</colgroup>
 						<tbody>
-							<!-- <tr class="underline">
-								<th scope="row"><label for="title">${CategoryName}</label></th>
-								<td>
-									<select name="kiosk" id="kiosk">
-									<c:forEach items="${list}" var="list">
-										<option value="${list.kiosk}">${list.kiosk}</option>
-									</c:forEach>
-									</select>
-								</td>
-							</tr> -->
 							<tr class="underline">
 								<th scope="row"><label for="title">${CategoryName}</label></th>
 								<td><input type="text" id="title" name="title" class="i_text" maxlength="45">
@@ -82,8 +81,8 @@ $(document).ready(function(){
 							
 							<!--<c:if test="${fn:substring(category,0,1)=='1'}"></c:if>-->
 							<tr class="underline">
-								<th scope="row"><label for="file_url">이미지첨부</label></th>
-								<td><input type="file" id="file_url" name="file_url" multiple="" size="40"/>
+								<th scope="row"><label for="imgFile">이미지첨부</label></th>
+								<td><input type="file" id="imgFile" name="imgFile" size="40"/>
 								</td>
 							</tr>
 							

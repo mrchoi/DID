@@ -2,6 +2,7 @@ package com.mobilepark.did.info.controller;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
+import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -20,6 +21,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.multipart.commons.CommonsMultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -101,38 +104,25 @@ public class InfoController {
 	
 	@RequestMapping(value = "admin/info/insert.htm", method = RequestMethod.POST, produces="text/html;charset=UTF-8")
 	@ResponseBody
-	public String insert(Model model,@ModelAttribute("info") Info info,
-			@RequestParam(value = "img_file") CommonsMultipartFile img_file,
-			@RequestParam(value = "curPage", defaultValue = "") String curPage) throws Exception
+	public String insert(Model model,@ModelAttribute("info") Info info,			
+			@RequestParam(value = "curPage", defaultValue = "") String curPage,
+			MultipartHttpServletRequest req) throws Exception
 
 	{
+		
+		MultipartFile imgFile = req.getFile("imgFile");
 		
 		String msg = "";
 		String fileName = "";
 		int ret = 0;   
 		
-		BufferedReader bufferedReader = null;
-		BufferedWriter file = null;
-		
 		try{
-				if (img_file.getSize() > 0) {
-									
-					Date uploadDate = new java.util.Date();
-					uploadDate.setTime(System.currentTimeMillis());
+						
+				if (imgFile!=null) {
 					
-					String filePath = Env.get("dtd.fileupload") + "/";
-					fileName = uploadDate.getTime() / 1000 * 1000 + "_"+img_file.getOriginalFilename();
-					
-					file = new BufferedWriter(new FileWriter(filePath+fileName,true));
-					bufferedReader = new BufferedReader(new InputStreamReader(img_file.getInputStream()));
-					String line;
-					
-					while ((line = bufferedReader.readLine()) != null) {
-							file.write(line);
-							file.newLine();
-					}
-					
-					file.close();
+					fileName = imgFile.getOriginalFilename().trim();
+					String path1 = Env.get("dtd.fileupload") + "/" + fileName;
+					imgFile.transferTo(new File(path1));
 				}
 				
 				info.setFile_url(fileName);
@@ -147,25 +137,11 @@ public class InfoController {
 		}catch(Exception e){
 			msg = Env.get("msg.user.exception");
 		}finally{
-			if (bufferedReader != null) {
-				try {
-					bufferedReader.close();
-				} catch (IOException e) {
-					e.printStackTrace();
-				}
-	 
-			}
-			if (file != null) {
-				try {
-					file.close();
-				} catch (IOException e) {
-					e.printStackTrace();
-				}
-	 
-			}
+			
 		}
 		return msg;
 	}
+	
 		
 	@RequestMapping(value ="admin/info/updateForm.htm" , method = RequestMethod.POST)
 	@ResponseBody
@@ -192,50 +168,26 @@ public class InfoController {
 	@RequestMapping(value = "admin/info/update.htm", method = RequestMethod.POST, produces="text/html;charset=UTF-8")
 	@ResponseBody
 	public String update(Model model,
-			@RequestParam(value = "file_url") CommonsMultipartFile file_url,
+			@ModelAttribute("info") Info info,
 			@RequestParam(value = "curPage", defaultValue = "") String curPage,
-			@RequestParam(value = "title", defaultValue = "") String title,
-			@RequestParam(value = "location", defaultValue = "") String location,
-			@RequestParam(value = "contents", defaultValue = "") String contents,
-			@RequestParam(value = "category", defaultValue = "") String category,
-			@RequestParam(value = "id", defaultValue = "") String id,
-			@RequestParam(value = "sequence", defaultValue = "") int sequence) throws Exception
+			MultipartHttpServletRequest req) throws Exception
 	{
 		String msg = "";
 		String fileName = "";
 		int ret = 0;
 		
-		BufferedReader bufferedReader = null;
-		BufferedWriter file = null;
+		MultipartFile imgFile = req.getFile("imgFile");
 		
 		try{
-			if (file_url.getSize() > 0) {
+			
+			if (imgFile!=null) {
 				
-				Date uploadDate = new java.util.Date();
-				uploadDate.setTime(System.currentTimeMillis());
-				
-				String filePath = Env.get("dtd.fileupload") + "/";
-				fileName = uploadDate.getTime() / 1000 * 1000 + "_"+file_url.getOriginalFilename();
-				
-				file = new BufferedWriter(new FileWriter(filePath+fileName,true));
-				bufferedReader = new BufferedReader(new InputStreamReader(file_url.getInputStream()));
-				String line;
-				
-				while ((line = bufferedReader.readLine()) != null) {
-						file.write(line);
-						file.newLine();
-				}
-				
-				file.close();
+				fileName = imgFile.getOriginalFilename().trim();
+				String path1 = Env.get("dtd.fileupload") + "/" + fileName;
+				imgFile.transferTo(new File(path1));
 			}
 			
-			Info info = new Info();
-			info.setCategory(category);
-			info.setId(id);
-			info.setContents(contents);
-			info.setLocation(location);
 			info.setFile_url(fileName);
-			info.setSequence(sequence);
 			
 			ret = infoService.update(info);
 			
@@ -248,22 +200,6 @@ public class InfoController {
 			e.printStackTrace();
 			msg = Env.get("msg.user.exception");
 		}finally{
-			if (bufferedReader != null) {
-				try {
-					bufferedReader.close();
-				} catch (IOException e) {
-					e.printStackTrace();
-				}
-	 
-			}
-			if (file != null) {
-				try {
-					file.close();
-				} catch (IOException e) {
-					e.printStackTrace();
-				}
-	 
-			}
 		}
 		return msg;
 	}

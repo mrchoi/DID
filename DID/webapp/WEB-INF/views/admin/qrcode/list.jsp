@@ -1,6 +1,7 @@
 <%@ page language="java" isELIgnored="false" contentType="text/html; charset=UTF-8"%>
 <%@ taglib prefix="c"   uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <Script type="text/javascript">
 $(document).ready(function(){
 	if('${ADMIN_ID}' == '') {
@@ -35,42 +36,19 @@ $(document).ready(function(){
 			return false;
 		}
 		$("#location").val(addr);
-		//window.open('info/popup.htm?location='+addr,'width=650,height=450');
 		
 		popUp($("#locationForm"), "info/popup.htm");
 	}
 	
-	function popUp(formName, url) {
-		  var screenSizeWidth,screenSizeHeight;
-		  if (self.screen) { 
-		   screenSizeWidth = screen.width ;  
-		   screenSizeHeight = screen.height;
-		  }  
-
-		  intWidth = screenSizeWidth;
-		  intHeight = screenSizeHeight;
-		  intXOffset = 0 ;
-		  intYOffset = 0 ;
-
-		   obwindow = window.open("","popup", "toolbar=no, location=no, directories=no, status=0, menubar=no, scrollbars=1,resizable=1") ;
-		   obwindow.resizeTo(intWidth, intHeight) ;
-		   obwindow.moveTo(intXOffset, intYOffset);
-		
-			formName.attr({
-				action : url,
-				method : "POST",
-				target : "popup"
-			}).submit();
-
-	}
 </Script>
+
 <form name="locationForm" id="locationForm" method="post">
 	<input type="hidden" name="location" id="location"/>
 </form>
 <form name="sendForm" id="sendForm" method="post">
-<input type="hidden" name="id" id="id" value="${ADMIN_ID}"/>
-<input type="hidden" name="sequence" id="sequence"/>
-<input type="hidden" name="curPage" id="curPage" value="${pageHandler.curPage}"/>
+<input type="hidden" id="id" name="id"  value="${ADMIN_ID}"/>
+<input type="hidden" id="sequence" name="sequence"/>
+<input type="hidden" id="curPage" name="curPage"  value="${pageHandler.curPage}"/>
 
 	<article>
 		<section>
@@ -79,12 +57,11 @@ $(document).ready(function(){
            	<table>
 					<thead>
 						 <tr align="center">
-					        <th>순번</th>
-					        <th>축제/행사</th>
-					        <th>제목</th>
-					        <th>URL</th>
-					        <th>등록자</th>
-					        <th>미리보기</th>
+					        <th width="10%">순번</th>
+					        <th width="20%">축제/행사</th>
+					        <th width="20%">제목</th>
+					        <th width="30%">URL</th>
+					        <th width="20%">QR코드미리보기</th>
 					    </tr> 
 					</thead>
 		    		<tbody> 
@@ -92,20 +69,26 @@ $(document).ready(function(){
 						<c:choose>
 							<c:when test="${empty list}">
 								<tr align="center">
-									<td colspan="6">서비스가 없습니다.</td>
+									<td colspan="5">서비스가 없습니다.</td>
 								</tr>
 							</c:when>	
 							<c:otherwise>
 								<c:forEach items="${list}" var="qrcode" varStatus="status">
 								
 									<tr align="center">
-									   <td>${status.count}</td>
-									   <td>${qrcode.info_sequence}</td>
-									   <td><a href="#" onclick="javascript:goDetail('${qrcode.sequence}');" style="cursor:hand">${qrcode.title}</a></td>
-									   <td>${qrcode.file_url}</td>
-									   <td>${qrcode.id}</td>
-									   <td><a href="#" onclick="javascript:goLocationView('${qrcode.file_url}');" style="cursor:hand">미리보기</a></td>
-									</tr>			
+									   <td width="10%">${status.count}</td>
+									   <td width="20%">${qrcode.info_title}</td>
+									   <td width="20%"><a href="#" onclick="javascript:goDetail('${qrcode.sequence}');" style="cursor:hand">${qrcode.title}</a></td>
+									   <td width="30%">
+									   <c:if test="${qrcode.file_url !=''}">http://${pageContext.request.serverName}:${pageContext.request.serverPort}${pageContext.request.contextPath}
+									   ${url}/${qrcode.file_url}</c:if>
+									   </td>
+									   <td width="20%">
+									   <c:if test="${fn:length(qrcode.qrcode_url) > 0}">
+								   		<img src="${pageContext.request.contextPath}/resources/fileupload/${qrcode.qrcode_url}" >
+									   </c:if>
+									   </td>
+									</tr>
 								</c:forEach>
 							</c:otherwise>					
 						</c:choose>
@@ -114,16 +97,28 @@ $(document).ready(function(){
 				</table>						
            </figure>
         </section>
-        	
-			<c:if test="${pageHandler.numbPageUrlList.size() >1}"> 
-			<div align="center">
-				<input id="nextbt" type="button" value="Next"/>
-			</div>
-			</c:if>
+        <c:if test="${pageHandler.numbPageUrlList.size() > 0}"> 
+		<div align="center" class="paginate">
+			<a href="#" class="pre_end" onclick="javascript:goPage('${pageHandler.startPage}');return false;">처음</a>
+			<a href="#" class="pre" onclick="javascript:goPage('${pageHandler.prevPage}');return false;">이전</a>
+			<c:forEach items="${pageHandler.numbPageUrlList}" var="numbPageList">
+				<c:choose>
+					<c:when test="${pageHandler.curPage == numbPageList.pageNumb}">
+						<strong>${numbPageList.pageNumb}</strong>
+					</c:when>
+					<c:otherwise>
+						<a href="#" onclick="javascript:goPage('${numbPageList.pageNumb}');return false;">${numbPageList.pageNumb}</a>
+					</c:otherwise>
+				</c:choose>
+			</c:forEach>
+			<a href="#" class="next" onclick="javascript:goPage('${pageHandler.nextPage}');return false;">다음</a>
+			<a href="#" class="next_end" onclick="javascript:goPage('${pageHandler.endPage}');return false;">끝</a>
+		</div>
+		</c:if>
 			
-			<div align="right">
-				<input id="registbt" type="button" value="Regist"/>
-			</div>	
+		<div align="right">
+			<input id="registbt" type="button" value="Regist"/>
+		</div>	
     </article>	
 
 </form>

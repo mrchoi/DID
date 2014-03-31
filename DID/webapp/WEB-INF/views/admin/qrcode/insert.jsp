@@ -19,21 +19,31 @@ $(document).ready(function(){
 			alert("동영상을 첨부하여 주시기 바랍니다.");
 			$("#file_url").focus();
 			return false;
-		} 
+		}
+		
+		$("#scForm").ajaxSubmit({
+			success : function(data){
+				alert(data);
+				var data = $("#scForm").serializeArray();
+				MovePage("qrcode/list.htm",data);
+			},
+			error : function(e){
+				alert("시스템 에러 입니다. 관리자에게 문의 하세요");
+				return false;
+			}
+	 	});
 
-		ProcessPage("qrcode/insert.htm",data,"qrcode/list.htm");
 	});
 	
 	$("#nextbt").click(function(){
 		var data = $("#scForm").serializeArray();
 		MovePage("qrcode/list.htm", data);
-	});	
+	});
 });
 
 </script>
-<form name="scForm" id="scForm">
+<form name="scForm" id="scForm" method="post" enctype="multipart/form-data" action="qrcode/insert.htm">
 	<input type="hidden" name="curPage" id="curPage" value="${curPage}"/>
-	<input type="hidden" name="category" id="category" value="${category}"/>
 	<input type="hidden" name="id" id="id" value="${ADMIN_ID}"/>
 	<article>
 			<section>
@@ -64,8 +74,14 @@ $(document).ready(function(){
 								</td>
 							</tr>
 							<tr class="underline">
-								<th scope="row"><label for="file_url">동영상첨부</label></th>
-								<td><input type="file" id="file_url" name="file_url" multiple="" size="40"/>
+								<th scope="row"><label for="imgFile">동영상첨부</label></th>
+								<td><input type="file" id="imgFile" name="imgFile" size="40"/>
+								</td>
+							</tr>
+							
+							<tr class="underline">
+								<th scope="row"><label for="QrcodeFile">QR코드첨부</label></th>
+								<td><input type="file" id="QrcodeFile" name="QrcodeFile" size="40"/>
 								</td>
 							</tr>
 							
