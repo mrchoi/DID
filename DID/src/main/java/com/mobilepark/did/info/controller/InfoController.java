@@ -121,7 +121,7 @@ public class InfoController {
 				if (imgFile!=null) {
 					
 					fileName = imgFile.getOriginalFilename().trim();
-					String path1 = Env.get("dtd.fileupload") + "/" + fileName;
+					String path1 = Env.get("did.fileupload") + "/" + fileName;
 					imgFile.transferTo(new File(path1));
 				}
 				
@@ -183,7 +183,7 @@ public class InfoController {
 			if (imgFile!=null) {
 				
 				fileName = imgFile.getOriginalFilename().trim();
-				String path1 = Env.get("dtd.fileupload") + "/" + fileName;
+				String path1 = Env.get("did.fileupload") + "/" + fileName;
 				imgFile.transferTo(new File(path1));
 			}
 			
@@ -234,10 +234,21 @@ public class InfoController {
 	@ResponseBody
 	public ModelAndView popupForm(Model model,@RequestParam(value = "location", defaultValue = "") String location) throws Exception
 	{
-		System.out.println(location);
+		
 		ModelAndView mv = new ModelAndView();
 		mv.setViewName("admin/info/popup");
 		mv.addObject("location", location);		
+		return mv;
+	}
+	
+	@RequestMapping(value ="admin/info/imgPopupForm.htm" , method = RequestMethod.POST,produces="text/html;charset=UTF-8")
+	@ResponseBody
+	public ModelAndView imgPopupForm(Model model,@RequestParam(value = "url", defaultValue = "") String url) throws Exception
+	{
+		System.out.println(url);
+		ModelAndView mv = new ModelAndView();
+		mv.setViewName("admin/festival/popup");
+		mv.addObject("url", url);		
 		return mv;
 	}
 

@@ -1,6 +1,7 @@
 <%@ page language="java" isELIgnored="false" contentType="text/html; charset=UTF-8"%>
 <%@ taglib prefix="c"   uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <Script type="text/javascript">
 $(document).ready(function(){
 	if('${ADMIN_ID}' == '') {
@@ -29,7 +30,17 @@ $(document).ready(function(){
 		return false;
 	}
 	
+	function goImageView(url){
+		
+		$("#url").val(url);
+		
+		popUp($("#ImageForm"), "info/imgPopupForm.htm");
+	}
+	
 </Script>
+<form name="ImageForm" id="ImageForm" method="post">
+	<input type="hidden" name="url" id="url"/>
+</form>
 <form name="sendForm" id="sendForm" method="post">
 <input type="hidden" name="id" id="id" value="${ADMIN_ID}"/>
 <input type="hidden" name="sequence" id="sequence"/>
@@ -64,7 +75,11 @@ $(document).ready(function(){
 									<tr align="center">
 									   <td>${status.count}</td>
 									   <td><a href="#" onclick="javascript:goDetail('${info.sequence}');" style="cursor:hand">${info.title}</a></td>
-									   <td>${info.file_url}</td>
+									   <td>
+									   <c:if test="${fn:length(info.file_url) > 0}">
+								   		<a href="#" onclick="javascript:goImageView('${info.file_url}');" style="cursor:hand">미리보기</a>
+									   </c:if>
+									   </td>
 									   <td>${info.id}</td>
 									   <td><fmt:formatDate value="${info.register_date}" pattern="yyyy-MM-dd" /></td>
 									</tr>			

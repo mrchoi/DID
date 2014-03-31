@@ -97,7 +97,7 @@ public class QrcodeController {
 				if (imgFile!=null) {
 					
 					fileName = imgFile.getOriginalFilename().trim();
-					String path = Env.get("dtd.fileupload") + "/" + fileName;
+					String path = Env.get("did.fileupload") + "/" + fileName;
 					imgFile.transferTo(new File(path));
 					
 					qrcode.setFile_url(fileName);
@@ -106,7 +106,7 @@ public class QrcodeController {
 				if (qrcodeFile!=null) {
 					
 					qrcodeName = qrcodeFile.getOriginalFilename().trim();
-					String qrcode_path = Env.get("dtd.fileupload") + "/" + qrcodeName;
+					String qrcode_path = Env.get("did.fileupload") + "/" + qrcodeName;
 					qrcodeFile.transferTo(new File(qrcode_path));
 					
 					qrcode.setQrcode_url(qrcodeName);
@@ -164,7 +164,7 @@ public class QrcodeController {
 			if (imgFile!=null && imgFile.getSize() > 0) {
 				
 				fileName = imgFile.getOriginalFilename().trim();
-				String path1 = Env.get("dtd.fileupload") + "/" + fileName;
+				String path1 = Env.get("did.fileupload") + "/" + fileName;
 				imgFile.transferTo(new File(path1));
 				
 				qrcode.setFile_url(fileName);
@@ -173,7 +173,7 @@ public class QrcodeController {
 			if (qrcodeFile!=null && qrcodeFile.getSize() > 0 ) {
 				
 				qrcodeName = qrcodeFile.getOriginalFilename().trim();
-				String qrcode_path = Env.get("dtd.fileupload") + "/" + qrcodeName;
+				String qrcode_path = Env.get("did.fileupload") + "/" + qrcodeName;
 				qrcodeFile.transferTo(new File(qrcode_path));
 				
 				qrcode.setQrcode_url(qrcodeName);
