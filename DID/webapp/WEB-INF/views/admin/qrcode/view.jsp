@@ -41,7 +41,7 @@ $(document).ready(function(){
 	<input type="hidden" name="sequence" id="sequence" value="${qrcode.sequence}"/>
 	<article>
 			<section>
-	       	<h1>QR코드 -> 등록</h1>
+	       	<h1>QR코드 -> 수정</h1>
 	           <figure>			
 					<table summary= "QR코드 수정">						
 						<colgroup>

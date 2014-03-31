@@ -232,11 +232,15 @@ public class InfoController {
 	
 	@RequestMapping(value ="admin/info/popup.htm" , method = RequestMethod.POST,produces="text/html;charset=UTF-8")
 	@ResponseBody
-	public ModelAndView popupForm(Model model,@RequestParam(value = "location", defaultValue = "") String location) throws Exception
+	public ModelAndView popupForm(Model model,@RequestParam(value = "location", defaultValue = "") String location,
+			@RequestParam(value = "seq", defaultValue = "") String seq) throws Exception
 	{
 		
 		ModelAndView mv = new ModelAndView();
 		mv.setViewName("admin/info/popup");
+		Info info = new Info();
+		info.setSequence(Integer.parseInt(seq));
+		mv.addObject("info", infoService.view(info));
 		mv.addObject("location", location);		
 		return mv;
 	}

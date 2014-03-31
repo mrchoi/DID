@@ -4,9 +4,8 @@
 <Script type="text/javascript">
 $(document).ready(function(){
 	if('${ADMIN_ID}' == '') {
-		$("#center").html("");
 		alert("로그인 후 이용해 주세요");
-		MovePage("admin/login.htm","");
+		location.href="index.htm";
 		return false;
 	}
 	
@@ -29,12 +28,13 @@ $(document).ready(function(){
 		return false;
 	}
 	
-	function goLocationView(addr){
+	function goLocationView(addr,seq){
 		if(addr == ""){
 			alert("잘못된 위치 정보입니다. 다시 위치정보를 확인해 주세요");
 			return false;
 		}
 		$("#location").val(addr);
+		$("#seq").val(seq);
 		
 		popUp($("#locationForm"), "info/popup.htm");
 	}
@@ -42,6 +42,7 @@ $(document).ready(function(){
 </Script>
 <form name="locationForm" id="locationForm" method="post">
 	<input type="hidden" name="location" id="location"/>
+	<input type="hidden" name="seq" id="seq"/>
 </form>
 <form name="sendForm" id="sendForm" method="post">
 <input type="hidden" name="id" id="id" value="${ADMIN_ID}"/>
@@ -81,7 +82,7 @@ $(document).ready(function(){
 									   <td>${info.location}</td>
 									   <td>${info.id}</td>
 									   <td><fmt:formatDate value="${info.register_date}" pattern="yyyy-MM-dd" /></td>
-									   <td><a href="#" onclick="javascript:goLocationView('${info.location}');" style="cursor:hand">미리보기</a></td>
+									   <td><a href="#" onclick="javascript:goLocationView('${info.location}','${info.sequence}');" style="cursor:hand">미리보기</a></td>
 									</tr>			
 								</c:forEach>
 							</c:otherwise>					

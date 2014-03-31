@@ -5,9 +5,8 @@
 <Script type="text/javascript">
 $(document).ready(function(){
 	if('${ADMIN_ID}' == '') {
-		$("#center").html("");
 		alert("로그인 후 이용해 주세요");
-		MovePage("admin/login.htm","");
+		location.href="index.htm";
 		return false;
 	}
 	
