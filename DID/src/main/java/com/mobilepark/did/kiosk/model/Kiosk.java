@@ -19,6 +19,7 @@ public class Kiosk implements Serializable {
 	private String obstacle_status;
 	private String schedule_start;
 	private String schedule_end;
+	private String mac_address;
 
 	private Date register_date;
 	private Date update_date;
@@ -109,6 +110,14 @@ public class Kiosk implements Serializable {
 
 	public void setUpdate_date(Date update_date) {
 		this.update_date = update_date;
+	}
+	
+	public String getMac_address() {
+		return mac_address;
+	}
+
+	public void setMac_address(String mac_address) {
+		this.mac_address = mac_address;
 	}
 
 	public String toString() {

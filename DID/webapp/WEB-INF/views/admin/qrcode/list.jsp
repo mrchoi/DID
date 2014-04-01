@@ -79,8 +79,10 @@ $(document).ready(function(){
 									   <td width="20%">${qrcode.info_title}</td>
 									   <td width="20%"><a href="#" onclick="javascript:goDetail('${qrcode.sequence}');" style="cursor:hand">${qrcode.title}</a></td>
 									   <td width="30%">
-									   <c:if test="${qrcode.file_url !=''}">http://${pageContext.request.serverName}:${pageContext.request.serverPort}${pageContext.request.contextPath}
-									   ${url}/${qrcode.file_url}</c:if>
+									   <!--<c:if test="${qrcode.file_url !=''}">http://${pageContext.request.serverName}:${pageContext.request.serverPort}${pageContext.request.contextPath}
+									   ${url}${qrcode.file_url}</c:if>-->
+									   <c:if test="${fn:length(qrcode.file_url) > 0}">http://${pageContext.request.serverName}:${pageContext.request.serverPort}${pageContext.request.contextPath}/admin/qrcode/movie.htm?seq=${qrcode.sequence}
+									   </c:if>
 									   </td>
 									   <td width="20%">
 									   <c:if test="${fn:length(qrcode.qrcode_url) > 0}">

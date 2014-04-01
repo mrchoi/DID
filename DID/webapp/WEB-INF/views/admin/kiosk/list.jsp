@@ -4,9 +4,8 @@
 <Script type="text/javascript">
 $(document).ready(function(){
 	if('${ADMIN_ID}' == '') {
-		$("#center").html("");
 		alert("로그인 후 이용해 주세요");
-		MovePage("admin/login.htm","");
+		location.href="index.htm";
 		return false;
 	}
 	
@@ -43,6 +42,7 @@ $(document).ready(function(){
 					        <th>순번</th>
 					        <th>키오스크단말</th>
 					        <th>IP</th>
+					        <th>MAC 주소</th>
 					        <th>상태</th>
 					        <th>비고</th>
 					    </tr> 
@@ -52,7 +52,7 @@ $(document).ready(function(){
 						<c:choose>
 							<c:when test="${empty list}">
 								<tr align="center">
-									<td colspan="5">서비스가 없습니다.</td>
+									<td colspan="6">서비스가 없습니다.</td>
 								</tr>
 							</c:when>	
 							<c:otherwise>
@@ -62,6 +62,7 @@ $(document).ready(function(){
 									   <td>${status.count}</td>
 									   <td><a href="#" onclick="javascript:goDetail('${kiosk.sequence}');" style="cursor:hand">${kiosk.kiosk}</a></td>
 									   <td>${kiosk.ip}</td>
+									   <td>${kiosk.mac_address}</td>
 									   <td><c:if test="${kiosk.status=='0'}">장애</c:if><c:if test="${kiosk.status=='1'}">정상</c:if></td>
 									   <td>
 									   	<input id="statusbt" type="button" value="ON/OFF"/>

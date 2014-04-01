@@ -194,30 +194,22 @@ public class QrcodeController {
 		return msg;
 	}
 	
-	@RequestMapping(value = "admin/qrcode/delete.htm", method = RequestMethod.POST, produces="text/html;charset=UTF-8")
+	
+	@RequestMapping(value ="admin/qrcode/movie.htm" , method = RequestMethod.GET)
 	@ResponseBody
-	public String delete(Model model,@ModelAttribute("qrcode") Qrcode qrcode,
-			@RequestParam(value = "curPage", defaultValue = "") String curPage
-			) throws Exception
-
-	{
-		String msg = "";
-		int ret = 0;
+	public ModelAndView movie(Model model,@RequestParam(value = "seq", defaultValue = "") String seq) {
+	
+		ModelAndView mv = new ModelAndView();
 		
-		try{
-			
-			ret = qrcodeService.delete(qrcode);
-			
-			if (ret == 1)
-				msg = Env.get("msg.qrcode.delete.succ");
-			else
-				msg = Env.get("msg.qrcode.delete.fail");
-		}catch(Exception e){
-			e.printStackTrace();
-			msg = Env.get("msg.user.exception");
-		}finally{
-		}
-		return msg;
+		mv.setViewName("admin/qrcode/movie");
+		Qrcode qrcode = new Qrcode();
+		qrcode.setSequence(Integer.parseInt(seq));
+		
+		mv.addObject("qrcode", qrcodeService.view(qrcode));
+
+		return mv;
 	}
+	
+	
 
 }

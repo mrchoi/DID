@@ -26,6 +26,12 @@ $(document).ready(function(){
 			return false;
 		}
 		
+		if($("#mac_address").val()==""){
+			alert("MAC 주소를 입력하여 주시기 바랍니다.");
+			$("#mac_address").focus();
+			return false;
+		}
+		
 		if($("#schedule_start").val()==""){
 			alert("스케쥴링 시작시간을 입력하여 주시기 바랍니다.");
 			$("#schedule_start").focus();
@@ -76,6 +82,12 @@ $(document).ready(function(){
 							<tr class="underline">
 								<th scope="row"><label for="ip">IP</label></th>
 								<td><input type="text" id="ip" name="ip" class="i_text" maxlength="20">
+								* 필수 항목입니다.
+								</td>
+							</tr>
+							<tr class="underline">
+								<th scope="row"><label for="ip">MAC 주소</label></th>
+								<td><input type="text" id="mac_address" name="mac_address" class="i_text" maxlength="20">
 								* 필수 항목입니다.
 								</td>
 							</tr>
