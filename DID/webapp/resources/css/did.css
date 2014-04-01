@@ -264,7 +264,7 @@ table {
 	-webkit-box-shadow: 0 0 4px rgba(0, 0, 0, 0.2);
 }
 
-th, td {padding:10px 20px 10px; }
+th, td {padding:10px 10px 10px; }
 
 th {text-shadow: 1px 1px 1px #fff; background:#e8eaeb;}
 
