@@ -58,28 +58,7 @@
     	var map = new google.maps.Map(document.getElementById("map_canvas"), mapOptions);
     	
     	
-    	var nowImage = '/did/resources/images/man.png';
-    	var image = '/did/resources/images/info_icon001.png';
     	
-    	new google.maps.Marker({
-    		position: myLatlng,
-    		map: map,
-    		icon: nowImage,
-    		title: '현재위치'
-    	});
-    	    	
-    	var locationLatlng = new google.maps.LatLng(lat, lng);
-    	
-    	var beachMarker = new google.maps.Marker({
-    		position: locationLatlng,
-    		map: map,
-    		icon: image,
-    		title: '${info.title}'
-    	});
-    	    	
-    	google.maps.event.addListener(beachMarker, 'click', function() {
-    		layer_open("layer1");
-    	});
     		
     	
       }

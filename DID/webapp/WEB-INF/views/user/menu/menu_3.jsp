@@ -4,8 +4,8 @@
 
 <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/menu2.css">
 
-<script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?key=AIzaSyDuER-nYuBvyniKkuCYRANZhRlQO_q7ZnE&sensor=false"></script>
-<script type="text/javascript" src="http://google-maps-utility-library-v3.googlecode.com/svn/trunk/infobox/src/infobox.js"></script>
+
+
 <script type="text/javascript">
     
    var lat = "";
@@ -50,8 +50,8 @@
    	var map = new google.maps.Map(document.getElementById("map_canvas"), mapOptions);
    	
    	var nowImage = '/did/resources/images/man.png';
-   	var image = '/did/resources/images/info_icon001.png';
-   	
+   	var image = '/did/resources/images/info_icon01.png';
+   	console.log(66);
    	new google.maps.Marker({
    		position: myLatlng,
    		map: map,
@@ -60,7 +60,7 @@
    	});
    	
    	var locationLatlng = new google.maps.LatLng(lat, lng);
-   	
+	console.log(777);
    	new google.maps.Marker({
    		position: locationLatlng,
    		map: map,
@@ -72,7 +72,7 @@
    </script>
     	
 <div id="center">
-	<div id="map_canvas">		
+	<div id="map_canvas" style="width:100%; height:100%">		
 	</div>
 	<div id="bottom">
 	
