@@ -59,7 +59,7 @@ $(document).ready(function(){
 					        <th width="10%">순번</th>
 					        <th width="20%">축제/행사</th>
 					        <th width="20%">제목</th>
-					        <th width="30%">URL</th>
+					        <th width="30%">QR코드 생성 URL</th>
 					        <th width="20%">QR코드미리보기</th>
 					    </tr> 
 					</thead>

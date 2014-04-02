@@ -83,7 +83,7 @@ $(document).ready(function(){
 						<c:choose>
 							<c:when test="${empty list}">
 								<tr align="center">
-									<td colspan="6">서비스가 없습니다.</td>
+									<td colspan="6">등록된 내용이 없습니다.</td>
 								</tr>
 							</c:when>	
 							<c:otherwise>
@@ -131,8 +131,7 @@ $(document).ready(function(){
 		
 		<div align="left">
 			<select name="searchKind">
-				<option value="" selected="selected">--검색어--</option>
-				<option value="info_title" <c:if test="${searchKind == 'info_title'}"> selected </c:if>>관광지</option>
+				<option value="info_title" <c:if test="${searchKind == 'info_title'}"> selected </c:if>>${CategoryName}</option>
 				<option value="info_location" <c:if test="${searchKind == 'info_location'}"> selected </c:if>>위치정보</option>
 			</select>
 			<input type="text" id="searchWord" name="searchWord" class="i_text" maxlength="45" size="30" title="검색키워드" value="${searchWord}">
