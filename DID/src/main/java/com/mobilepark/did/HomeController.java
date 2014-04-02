@@ -30,13 +30,17 @@ public class HomeController {
 		
 		String admin_id = (String) session.getAttribute("ADMIN_ID");
 		
-		System.out.println("admin_id===="+admin_id);
 		if(admin_id==null){
 			return "/admin/login";
 		}else{
 			return "/admin/main";
 		}
 		
+	}
+	
+	@RequestMapping(value = "/index.htm", method = RequestMethod.GET)
+	public String main(Locale locale, Model model, HttpSession session) {		
+			return "/user/main";		
 	}
 	
 }
