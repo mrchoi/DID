@@ -6,7 +6,16 @@
 	
 	<select id="list" parameterType="HashMap" resultType="Info">
 		SELECT sequence, category, title, contents, file_url, location, id, register_date 
-		FROM tbl_info WHERE category = #{category} 
+		FROM tbl_info WHERE category = #{category}
+		
+		<if test="searchWord != null and searchWord != ''">
+			<if test="searchKind == 'info_title'">
+				AND title LIKE CONCAT ('%' , #{searchWord}, '%')
+			</if>
+			<if test="searchKind == 'info_location'">
+				AND location LIKE CONCAT ('%' , #{searchWord}, '%')
+			</if>
+		</if>
 		<if test="pg != null and pg != ''">
 			LIMIT #{pg.startPoint}, #{pg.endPoint}
 		</if>

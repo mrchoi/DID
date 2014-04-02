@@ -13,6 +13,19 @@ $(document).ready(function(){
 		var data = $("#sendForm").serializeArray();
 		MovePage('info/insertForm.htm',data);
 	});
+	
+	$("#searchbt").click(function(){
+
+		if($("#searchKind").val() != '' && !$("#searchWord").val()){
+			alert("검색어를 입력해주세요.");
+			$("#searchWord").focus();
+			return false;
+		}else{
+			var data = $("#sendForm").serializeArray();
+			MovePage("info/list.htm", data);
+			return false;
+		}
+	});
 });
 
 	function goDetail(id){
@@ -114,7 +127,17 @@ $(document).ready(function(){
 		
 		<div align="right">
 			<input id="registbt" type="button" value="Regist"/>
-		</div>	
+		</div>
+		
+		<div align="left">
+			<select name="searchKind">
+				<option value="" selected="selected">--검색어--</option>
+				<option value="info_title" <c:if test="${searchKind == 'info_title'}"> selected </c:if>>관광지</option>
+				<option value="info_location" <c:if test="${searchKind == 'info_location'}"> selected </c:if>>위치정보</option>
+			</select>
+			<input type="text" id="searchWord" name="searchWord" class="i_text" maxlength="45" size="30" title="검색키워드" value="${searchWord}">
+			<input id="searchbt" type="button" value="검색"/>
+		</div>
     </article>	
 
 </form>

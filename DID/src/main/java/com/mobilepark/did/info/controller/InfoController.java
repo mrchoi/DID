@@ -43,7 +43,9 @@ public class InfoController {
 	@RequestMapping(value = "admin/info/list.htm")
 	public ModelAndView list(HttpSession session,
 			@RequestParam(value = "curPage", defaultValue = "") String curPage,
-			@RequestParam(value = "category", defaultValue = "") String category) {
+			@RequestParam(value = "category", defaultValue = "") String category,
+			@RequestParam(value = "searchKind", defaultValue = "") String searchKind,
+			@RequestParam(value = "searchWord", defaultValue = "") String searchWord) {
 
 		HashMap<String, Object> hash = new HashMap<String, Object>();
 		
@@ -51,6 +53,8 @@ public class InfoController {
 		String categoryName = Env.get("category."+category);
 		
 		hash.put("category",category);
+		hash.put("searchKind",searchKind);
+		hash.put("searchWord",searchWord);
 
 		int currentPage = 1;
 		if(!(curPage == null || curPage.equals(""))) {
@@ -75,6 +79,8 @@ public class InfoController {
 		mv.addObject("ADMIN_ID", session.getAttribute("ADMIN_ID"));
 		mv.addObject("CategoryName", categoryName);
 		mv.addObject("category", category);
+		mv.addObject("searchKind", searchKind);
+		mv.addObject("searchWord", searchWord);
 		
 		return mv;
 	}
