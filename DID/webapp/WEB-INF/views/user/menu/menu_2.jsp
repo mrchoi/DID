@@ -102,7 +102,7 @@ $(document).ready(function(){
 
 </script>
 <div id="left">
-	<img id="festival_img" src="${pageContext.request.contextPath}/resources/images/festival_con1.jpg" width="100%" height="100%"/>
+	<img id="festival_img" src="${pageContext.request.contextPath}/resources/images/festival_1_con.jpg" width="100%" height="100%"/>
 </div>
 <div id="right">
 	<div id="right-top">
