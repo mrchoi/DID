@@ -2,9 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@ include file="/resources/include/header.inc" %> 
 
-<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/menu2.css">
-
-
+<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/menu.css">
 
 <script type="text/javascript">
     
@@ -12,34 +10,58 @@
    var lng = "";
    
    $(document).ready(function(){
-	   console.log(1111);
+	   var festival = false;
+		$(".infoimg").mouseover(function(){
+			var file = $(this).attr('src').split("/");
+			var filename = file[file.length-1];
+			var path = "";
+			for(var i=0;i<file.length-1;i++){
+				path = (i==0)?path+file[i]:path+"/"+file[i];
+			}
+			if(filename.indexOf("_on") == -1){
+				festival = true;
+				$(this).attr('src', path+"/"+filename.replace('.png','_on.png'));
+			}else{
+				festival = false;
+			}
+			
+		}).mouseout(function(){
+			var file = $(this).attr('src').split("/");
+			var filename = file[file.length-1];
+			var path = "";
+			for(var i=0;i<file.length-1;i++){
+				path = (i==0)?path+file[i]:path+"/"+file[i];
+			}
+			
+			if(festival){
+				$(this).attr('src', path+"/"+filename.replace('_on.png','.png'));
+			}
+			
+		}).click(function(){
+			
+			
+			var file = $(this).attr('src').split("/");
+			var filename = file[file.length-1];
+			var path = "";
+			for(var i=0;i<file.length-1;i++){
+				path = (i==0)?path+file[i]:path+"/"+file[i];
+			}
+			
+			for(var k=1; k< $(".infoimg").length+1 ;k++){
+				var filename1 = "info_"+k;
+				$("#"+filename1).attr('src', path+"/"+filename1+".png");
+			}
+			
+			$(this).attr('src', path+"/"+filename);
+			festival = false;
+			
+		});	
+			
 	   initialize();
    });
   
-   function geocode(){
-   	console.log(2222);
-   	var address = "${location}";
-   	console.log(333);
-   	var geocoder = new google.maps.Geocoder();
-   	
-   	console.log(444);
-	  	geocoder.geocode({'address':address,'partialmatch':true},geocodeResult);
-   }
-   
-   function geocodeResult(results,status){
-   	if(status =='OK' && results.length >0){
-   		lat = results[0].geometry.location.lat();
-   		lng = results[0].geometry.location.lng();
-   	}else{
-   		alert(status);
-   	}
-  		
-   	initialize();
-   }
-  
-  
    function initialize() {
-  console.log(5555);	  
+
    	var myLatlng = new google.maps.LatLng(35.3374507, 128.9560922);
    	 
    	var mapOptions = {													
@@ -50,8 +72,7 @@
    	var map = new google.maps.Map(document.getElementById("map_canvas"), mapOptions);
    	
    	var nowImage = '/did/resources/images/man.png';
-   	var image = '/did/resources/images/info_icon01.png';
-   	console.log(66);
+
    	new google.maps.Marker({
    		position: myLatlng,
    		map: map,
@@ -59,29 +80,24 @@
    		title: '현재위치'
    	});
    	
-   	var locationLatlng = new google.maps.LatLng(lat, lng);
-	console.log(777);
-   	new google.maps.Marker({
-   		position: locationLatlng,
-   		map: map,
-   		icon: image,
-   		title: '위치'
-   	});
    	
      }
+   
    </script>
     	
-<div id="center">
-	<div id="map_canvas" style="width:100%; height:100%">		
-	</div>
-	<div id="bottom">
-	
-			<img id="info_1" class="infoimg" src="${pageContext.request.contextPath}/resources/images/info_icon01.png"/>
-			<img id="info_2" class="infoimg" src="${pageContext.request.contextPath}/resources/images/info_icon02.png"/>
-			<img id="info_3" class="infoimg" src="${pageContext.request.contextPath}/resources/images/info_icon03.png"/>
-			<img id="info_4" class="infoimg" src="${pageContext.request.contextPath}/resources/images/info_icon04.png"/>
-			<img id="info_5" class="infoimg" src="${pageContext.request.contextPath}/resources/images/info_icon05.png"/>
-			<img id="info_6" class="infoimg" src="${pageContext.request.contextPath}/resources/images/info_icon06.png"/>
+<div class="full">
+	<div id="map_canvas" class="full">
 			
+	</div>
+	
+	<div id="bottom">
+	 
+			<div><img id="info_1" class="infoimg" src="${pageContext.request.contextPath}/resources/images/info_1_on.png"/><br/><b>관광지</b></div>
+			<div><img id="info_2" class="infoimg" src="${pageContext.request.contextPath}/resources/images/info_2.png"/><br/><b>음식점</b></div>
+			<div><img id="info_3" class="infoimg" src="${pageContext.request.contextPath}/resources/images/info_3.png"/><br/><b>숙박시설</b></div>
+			<div><img id="info_4" class="infoimg" src="${pageContext.request.contextPath}/resources/images/info_4.png"/><br/><b>특산품</b></div>
+			<div><img id="info_5" class="infoimg" src="${pageContext.request.contextPath}/resources/images/info_5.png"/><br/><b>대중교통</b></div>
+			<div><img id="info_6" class="infoimg" src="${pageContext.request.contextPath}/resources/images/info_6.png"/><br/><b>관공서</b></div>
+		
 	</div>
 </div>
