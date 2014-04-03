@@ -2,7 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@ include file="/resources/include/header.inc" %> 
 
-<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/menu2.css">
+<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/menu.css">
 <script type="text/javascript">
 
 $(document).ready(function(){
@@ -35,68 +35,47 @@ $(document).ready(function(){
 		
 	}).click(function(){
 		
-		var file = $(this).attr('src').split("/");
-		var filename = file[file.length-1];
-		var path = "";
-		for(var i=0;i<file.length-1;i++){
-			path = (i==0)?path+file[i]:path+"/"+file[i];
-		}
-		
-		for(var k=1; k< $(".festivalimg").length+1 ;k++){
-			var filename1 = "festival_"+k;
-			$("#"+filename1).attr('src', path+"/"+filename1+".png");
-		}
-		
-		$(this).attr('src', path+"/"+filename);
-		festival = false;
-		
-		$("#festival_img").attr('src',path+"/"+filename.replace('_on.png','_con.jpg'));
-	});
-	
-	$(".festivalsch").mouseover(function(){
-		
-		var file = $(this).attr('src').split("/");
-		var filename = file[file.length-1];
-		var path = "";
-		for(var i=0;i<file.length-1;i++){
-			path = (i==0)?path+file[i]:path+"/"+file[i];
-		}
-		
-		$(this).attr('src', path+"/"+filename.replace('.png','_on.png'));
-		
-	}).mouseout(function(){
-		var file = $(this).attr('src').split("/");
-		var filename = file[file.length-1];
-		var path = "";
-		for(var i=0;i<file.length-1;i++){
-			path = (i==0)?path+file[i]:path+"/"+file[i];
-		}
-		
-		$(this).attr('src', path+"/"+filename.replace('_on.png','.png'));
-
-	}).click(function(){
-		
-		var filename = "";
+		if(this.id=="festival_close"){
+			$("#pop").hide();
+		}else if(this.id=="festival_sch"){
+			var filename = "";
+			
+			for(var k=1; k< $(".festivalimg").length+1 ;k++){
+				var filename1 = "#festival_"+k;
+				var file = $(filename1).attr('src').split("/");
 				
-		for(var k=1; k< $(".festivalimg").length+1 ;k++){
-			var filename1 = "#festival_"+k;
-			var file = $(filename1).attr('src').split("/");
+				filename = file[file.length-1];
+				
+				if(filename.indexOf("_on")!=-1){
+					break;
+				}
+				
+			}
+
+			$("#festival_pop").attr('src', '/did/resources/images/'+filename.replace('_on.png','_pop.png'));
+			$("#pop").show();
+		}else{
 			
-			filename = file[file.length-1];
-			
-			if(filename.indexOf("_on")!=-1){
-				break;
+			var file = $(this).attr('src').split("/");
+			var filename = file[file.length-1];
+			var path = "";
+			for(var i=0;i<file.length-1;i++){
+				path = (i==0)?path+file[i]:path+"/"+file[i];
 			}
 			
+			for(var k=1; k< $(".festivalimg").length+1 ;k++){
+				var filename1 = "festival_"+k;
+				$("#"+filename1).attr('src', path+"/"+filename1+".png");
+			}
+			
+			$(this).attr('src', path+"/"+filename);
+			festival = false;
+			$("#festival_img").attr('src',path+"/"+filename.replace('_on.png','_con.jpg'));
 		}
-
-		$("#festival_pop").attr('src', '/did/resources/images/'+filename.replace('_on.png','_pop.png'));
-		$("#pop").show();
 	});
 	
-	$("#pop").click(function(){
-		$("#pop").hide();
-	});
+	
+	$("#festival_img").attr('src','${pageContext.request.contextPath}/resources/images/festival_1_con.jpg');
 });
 
 
@@ -106,7 +85,7 @@ $(document).ready(function(){
 </div>
 <div id="right">
 	<div id="right-top">
-		<img id="festival_sch" class="festivalsch" src="${pageContext.request.contextPath}/resources/images/festival_sch.png"/>
+		<img id="festival_sch" class="festivalimg" src="${pageContext.request.contextPath}/resources/images/festival_sch.png"/>
 	</div>
 	<div id="right-center">
 		<img id="festival_1" class="festivalimg" src="${pageContext.request.contextPath}/resources/images/festival_1_on.png"/>
@@ -121,5 +100,10 @@ $(document).ready(function(){
 	</div>
 </div>
 <div id="pop" style="display:none;">
-	<img id="festival_pop" src="${pageContext.request.contextPath}/resources/images/festival_1_pop.png"/>
+	<div id="fe_close">
+		<img id="festival_close" class="festivalimg" src="${pageContext.request.contextPath}/resources/images/close.png"/>
+	</div>
+	<div id="fe_pop">
+		<img id="festival_pop" src="${pageContext.request.contextPath}/resources/images/festival_1_pop.png"/>
+	</div>
 </div>
