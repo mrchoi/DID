@@ -65,7 +65,7 @@ $(document).ready(function(){
 		MovePage(this.id);
 	});
 	
-	//MovePage("menu_1");
+	MovePage("menu_1");
 });
 
 
