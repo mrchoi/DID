@@ -54,14 +54,14 @@
 			$(this).attr('src', path+"/"+filename);
 			festival = false;
 			
-			goMarker(this.id);
+			goFindMarker(this.id);
 			
 		});	
 			
 	   initialize();
    });
   
-   function goMarker(categoryId){
+   function goFindMarker(categoryId){
 	   console.log(categoryId.replace("info_",""));
 	   
 	   $.ajax({
@@ -71,15 +71,16 @@
 			data : {"category":categoryId.replace("info_","")},
 			success : function(data) {
 				console.log(data[0]);
+				initialize(data);
 			},
 			error : function() {
 				alert("위치정보를 가져오지 못했습니다. 잠시 후 다시 해주세요.");
 				return false;
 			}
 		});
-   }
+   }   
    
-   function initialize() {
+   function initialize(data) {
 
    	var myLatlng = new google.maps.LatLng(35.3374507, 128.9560922);
    	 
@@ -92,6 +93,12 @@
    	
    	var nowImage = '/did/resources/images/man.png';
 
+   	if(data){
+	   	for(var i=0;i<data.length;i++){
+	   		var loc = data[i].location;
+	   	}
+   	}
+   	
    	new google.maps.Marker({
    		position: myLatlng,
    		map: map,
