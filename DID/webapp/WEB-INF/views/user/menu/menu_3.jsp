@@ -70,7 +70,6 @@
 			url : "user/info/list.json",
 			data : {"category":categoryId.replace("info_","")},
 			success : function(data) {
-				console.log(data[0]);
 				initialize(data);
 			},
 			error : function() {
@@ -95,7 +94,8 @@
 
    	if(data){
 	   	for(var i=0;i<data.length;i++){
-	   		var loc = data[i].location;
+	   		lat = data[i].lat;
+	   		lng = data[i].lng;
 	   	}
    	}
    	
