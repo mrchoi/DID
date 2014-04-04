@@ -56,6 +56,7 @@ $(document).ready(function(){
 <form name="locationForm" id="locationForm" method="post">
 	<input type="hidden" name="location" id="location"/>
 	<input type="hidden" name="seq" id="seq"/>
+	<input type="hidden" name="category" id="category" value="${category}"/>
 </form>
 <form name="sendForm" id="sendForm" method="post">
 <input type="hidden" name="id" id="id" value="${ADMIN_ID}"/>

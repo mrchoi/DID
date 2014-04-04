@@ -69,7 +69,8 @@ $(document).ready(function(){
 							<tr class="underline">
 								<th scope="row"><label for="location">위치정보</label></th>
 								<td><input type="text" id="location" name="location" class="i_text" maxlength="45" size="60" value="${info.location}">
-								* 필수 항목입니다.
+								* 필수 항목입니다.<br>
+								<font color="red">정확한 주소를 입력해 주세요!</font>
 								</td>
 							</tr>
 							<tr class="underline">

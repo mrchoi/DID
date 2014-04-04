@@ -13,6 +13,9 @@
 <script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/jquery-1.11.0.min.js"></script>
 <script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/jquery.form.js"></script>
 <script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/common.js"></script>
+<script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?sensor=false"></script>
+<script type="text/javascript" src="http://google-maps-utility-library-v3.googlecode.com/svn/trunk/infobox/src/infobox.js"></script>
+	
 <script type="text/javascript">
 
 $(document).ready(function(){

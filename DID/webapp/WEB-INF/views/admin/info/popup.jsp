@@ -7,28 +7,65 @@
 <!DOCTYPE html>
 <html>
   <head>
+  	<meta http-equiv="content-type" content="text/html; charset=UTF-8" />
     <meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
     <style type="text/css">
-      html { height: 100% }
-      body { height: 100%; margin: 0; padding: 0 }
-      #map_canvas { height: 100% }
-      .pop-layer {display:none; position: absolute; top: 50%; left: 50%; width: 410px; height:auto;  background-color:#fff; border: 5px solid #3571B5; z-index: 10;} 
-	  .pop-layer .pop-container {padding: 20px 25px;}
-	  .pop-layer p.ctxt {color: #666; line-height: 25px;}
-	  .pop-layer .btn-r {width: 100%; margin:10px 0 20px; padding-top: 10px; border-top: 1px solid #DDD; text-align:right;}
-	  a.cbtn {display:inline-block; height:25px; padding:0 14px 0; border:1px solid #304a8a; background-color:#3f5a9d; font-size:13px; color:#fff; line-height:25px;}
-	  a.cbtn:hover {border: 1px solid #091940; background-color:#1f326a; color:#fff;}
+      /* Base */
+	html { height: 100% }
+	body { height: 100%; margin: 0; padding: 0 }
+	*{margin:0;padding:0}
+	body{font-size:12px;font-family:'나눔고딕',NanumGothic,'돋움',dotum,AppleGothic;line-height:18px;color:#636262;text-align:center}
+	ul,ol,dl,li,dt,dd{margin:0;padding:0;list-style:none}
+	h1,h2,h3,h4,h5,h6{margin:0;padding:0}
+	p{margin:0;padding:0;text-align:justify}
+	img{border:none;vertical-align:top}
+	textarea{overflow:auto}
+	form,fieldset,button{margin:0;padding:0;border:none}
+	a{text-decoration:none}
+	a:link,a:visited{color:#444;text-decoration:none}
+	a:hover,a:active,a:focus{text-decoration:none}
+	hr{display:none;margin:0;padding:0}
+	label{cursor:pointer}
+	address,em{font-style:normal;font-weight:normal}
+	html:first-child select{height:20px;padding-right:6px}
+	.png24{tmp:expression(setPng24(this))}
+
+	/* Opera 9 & Below Fix */
+	option{padding-right:6px}
+
+	/* hidden contents */
+	#accessibility,.skip,hr,legend,caption{visibility:hidden;overflow:hidden;z-index:-1;width:0;height:0;font-size:0;line-height:0}
+
+	@font-face{
+	font-family:NanumGothic;src:url(${pageContext.request.contextPath}/resources/images/NanumGothic.eot)}
+	@font-face{
+	font-family:NanumGothic;src:url(${pageContext.request.contextPath}/resources/images/NanumGothic.ttf)}
+    
+    .popup{overflow:hidden;background:url(${pageContext.request.contextPath}/resources/images/facility_pop_bg.png) no-repeat 0 0;}
+  	.popup .con_s{float:left;height:378px;width:585px;text-align:left;}
+  	
+	.popup .title_s{float:left;width:71px;}
+	h1.h1_title{font-family:'나눔고딕',NanumGothic,'돋움',dotum,AppleGothic;font-size:33px;padding-top:40px;padding-left:65px;padding-bottom:35px;color:#1b1c20;}
+	.popup .con_txt{font-size:21px;padding-left:65px;line-height:34px;color:#636363;overflow:hidden;}
+	.popup .con_txt ul.info_list{float:left;width:150px;}
+	.popup .con_txt ul.map_list{float:left;padding-left:30px;border-left:1px dashed #bababa;}
+	.popup .con_txt ul li{font-size:21px;font-family:'나눔고딕',NanumGothic,'돋움',dotum,AppleGothic;line-height:34px;color:#636262;}
+	span.t1{font-size:21px;font-family:'나눔고딕',NanumGothic,'돋움',dotum,AppleGothic;line-height:34px;color:#282626;}
+	li.bl{background:url(${pageContext.request.contextPath}/resources/images/bl.gif) no-repeat 0 15px;padding-left:15px;}
+ 	
+ 	#map_canvas { height: 100% }
+ 	
     </style>
     <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.6/jquery.min.js"></script>
-    <script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?key=AIzaSyDuER-nYuBvyniKkuCYRANZhRlQO_q7ZnE&sensor=false"></script>
+    <script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?sensor=false"></script>
 	<script type="text/javascript" src="http://google-maps-utility-library-v3.googlecode.com/svn/trunk/infobox/src/infobox.js"></script>
     <script type="text/javascript">
     
     var lat = "";
     var lng = "";
+    var infowindow = "";
    
     function geocode(){
-    	
     	var address = "${location}";
     	var geocoder = new google.maps.Geocoder();
  	  	geocoder.geocode({'address':address,'partialmatch':true},geocodeResult);
@@ -44,8 +81,7 @@
    		
     	initialize();
     }
-   
-    var infowindow = "";
+       
     function initialize() {
     	
     	var myLatlng = new google.maps.LatLng(35.3374507, 128.9560922);
@@ -57,9 +93,8 @@
     			};
     	var map = new google.maps.Map(document.getElementById("map_canvas"), mapOptions);
     	
-    	
-    	var nowImage = '/did/resources/images/man.png';
-    	var image = '/did/resources/images/info_icon001.png';
+    	var nowImage = '${pageContext.request.contextPath}/resources/images/man.png';
+    	var image = '${pageContext.request.contextPath}/resources/images/info_icon${info.category}.png';
     	
     	new google.maps.Marker({
     		position: myLatlng,
@@ -76,61 +111,84 @@
     		icon: image,
     		title: '${info.title}'
     	});
-    	    	
+    	
+    	var filesize = "${info.file_url}";
+    	var category = "${info.category}";
+    	var popImage = "facility_pop_t1.png";
+    	var cloaseImage = "facility_pop_close.png";
+   	
+    	if(category.substring(0, 1)=="0") {
+    		popImage="info_pop_t1.png";
+    		cloaseImage = "info_pop_close1.png";
+    		//$("#.popup").attr("background", "url(${pageContext.request.contextPath}/resources/images/info_pop_bg.png)");
+    		$(".popup .con_s").attr("width","815px");
+    	}
+    	
+    	var contentString = null;	
+    	contentString = 
+    		'<div id="pop" class="popup">'+
+    			'<div class="con_s">'+
+    				'<h1 class="h1_title">${info.title}</h1>'+
+    				'<div class="con_txt">';
+    					
+    					if(filesize.length >0 ){
+    						contentString += '<ul id="showImage" class="info_list">'+
+    						'<img src="${pageContext.request.contextPath}/resources/fileupload/${info.file_url}" alt="" width="120px" height="160px"/>'+
+        					'</ul>';
+    					}
+    	
+    					contentString += '<ul class="map_list">'+
+    						'<li>${fn:replace(info.contents,newLineChar, '<br/>')}</li>'+
+    					'</ul>'+
+    				'</div>'+
+    			'</div>'+
+    			'<div class="title_s">'+
+    				'<p><img src="${pageContext.request.contextPath}/resources/images/'+popImage+'" alt="" /></p>'+
+    				'<p><a href="javascript:closeInfobox();"><img src="${pageContext.request.contextPath}/resources/images/'+cloaseImage+'" alt="" /></a></p>'+
+    			'</div>'+
+    		'</div>';
+
+    	var InfoBoxOptions = {
+    			content: contentString,
+    			disableAutoPan: false,
+    			maxWidth: 0,
+    			alignBottom: true,
+    			pixelOffset: new google.maps.Size(-140, -70),
+    			zIndex: null,
+    			boxClass: "info-windows",
+    			closeBoxURL: "",
+    			pane: "floatPane",
+    			enableEventPropagation: false,
+    			infoBoxClearance: "10px",
+    			position: beachMarker.getPosition(),
+    			boxStyle: { 
+    				opacity: 0.9
+    				,width: "656px"
+    				,height: "378px"
+    			}
+    	};
+    	
+    	infowindow = new InfoBox(InfoBoxOptions);
+    	
     	google.maps.event.addListener(beachMarker, 'click', function() {
-    		layer_open("layer1");
+    		var t = $(".popup .con_s").val("width");
+    		alert(t);
+    		$(".popup .con_s").attr("width","815px");
+      		selectMarker(map,beachMarker);
     	});
-    		
     	
       }
     
-    function layer_open(el) {
-    	
-		var temp = $('#' + el);
-		var bg = temp.prev().hasClass('bg');
-		
-		if(bg){
-			$('.layer').fadeIn();
-		}else{
-			temp.fadeIn();
-		}
-	
-		if (temp.outerHeight() < $(document).height() ) temp.css('margin-top', '-'+temp.outerHeight()/2+'px');
-		else temp.css('top', '0px');
-		
-		if (temp.outerWidth() < $(document).width() ) temp.css('margin-left', '-'+temp.outerWidth()/2+'px');
-		else temp.css('left', '0px');
-		
-		temp.find('a.cbtn').click(function(e){
-			if(bg){
-				$('.layer').fadeOut();
-			}else{
-				temp.fadeOut();    
-			}
-			
-			e.preventDefault();
-		});
-		
-		$('.layer .bg').click(function(e){
-			$('.layer').fadeOut();
-			e.preventDefault();
-		});
+    function selectMarker(map,beachMarker) {
+     	infowindow.open(map,beachMarker);
+    }
+    
+    function closeInfobox(){
+	   	infowindow.close();
     }
     </script>
   </head>
   <body onload="geocode()">
 	<div id="map_canvas" style="width:100%; height:100%"></div>
-	<div id="layer1" class="pop-layer">
-		<div class="pop-container">
-			<div class="pop-conts">
-				<p class="ctxt mb20"><B>${info.title}</B><br>
-				${fn:replace(info.contents,newLineChar, '<br/>')}
-				</p>
-				<div class="btn-r">
-					<a href="#" class="cbtn">Close</a>
-				</div>
-			</div>
-		</div>
-	</div>
-  </body>
+ </body>
 </html>
