@@ -243,8 +243,7 @@ public class InfoController {
 	{
 		
 		ModelAndView mv = new ModelAndView();
-		if(category.equals("001"))	mv.setViewName("admin/info/tour_popup");
-		else mv.setViewName("admin/info/popup");
+		mv.setViewName("admin/info/popup");
 		
 		Info info = new Info();
 		info.setSequence(Integer.parseInt(seq));
