@@ -208,10 +208,9 @@ public class InfoController {
 				fileName = imgFile.getOriginalFilename().trim();
 				String path1 = Env.get("did.fileupload") + "/" + fileName;
 				imgFile.transferTo(new File(path1));
+				info.setFile_url(fileName);
 			}
-			
-			info.setFile_url(fileName);
-			
+				
 			ret = infoService.update(info);
 			
 			if (ret == 1)
@@ -256,11 +255,13 @@ public class InfoController {
 	@RequestMapping(value ="admin/info/popup.htm" , method = RequestMethod.POST,produces="text/html;charset=UTF-8")
 	@ResponseBody
 	public ModelAndView popupForm(Model model,@RequestParam(value = "location", defaultValue = "") String location,
-			@RequestParam(value = "seq", defaultValue = "") String seq) throws Exception
+			@RequestParam(value = "seq", defaultValue = "") String seq,
+			@RequestParam(value = "category", defaultValue = "") String category) throws Exception
 	{
 		
 		ModelAndView mv = new ModelAndView();
 		mv.setViewName("admin/info/popup");
+		
 		Info info = new Info();
 		info.setSequence(Integer.parseInt(seq));
 		mv.addObject("info", infoService.view(info));

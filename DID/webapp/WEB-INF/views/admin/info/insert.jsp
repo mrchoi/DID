@@ -20,7 +20,6 @@ $(document).ready(function(){
 			return false;
 		}
 
-
 		if($("#contents").val()==""){
 			alert("내용을 입력하여 주시기 바랍니다.");
 			$("#contents").focus();
@@ -43,7 +42,37 @@ $(document).ready(function(){
 	$("#nextbt").click(function(){
 		var data = $("#scForm").serializeArray();
 		MovePage("info/list.htm", data);
-	});	
+	});
+	
+	$("#searchbt").click(function(){
+    	var address = $("#location").val();
+    	var geocoder = new google.maps.Geocoder();
+ 	  	geocoder.geocode({'address':address,'partialmatch':true},geocodeResult);
+    });
+    
+    function geocodeResult(results,status){
+    	if(status =='OK' && results.length >0){
+    		lat = results[0].geometry.location.lat();
+    		lng = results[0].geometry.location.lng();
+    		
+    		var geocoder1 = new google.maps.Geocoder();
+    		var latlng = new google.maps.LatLng(lat,lng);
+    		
+    		geocoder1.geocode({'latLng' : latlng}, function(results, status){
+    			
+    			if (status == google.maps.GeocoderStatus.OK) {
+    				
+    				if (results[1]) {
+    					alert(results[3].formatted_address);
+    				}else{
+    					alert("Geocoder failed due to: " + status);
+    				}
+    			}
+    		});
+    	}else{
+    		alert(status);
+    	}
+    }
 });
 
 </script>
@@ -69,8 +98,9 @@ $(document).ready(function(){
 							</tr>
 							<tr class="underline">
 								<th scope="row"><label for="location">위치정보</label></th>
-								<td><input type="text" id="location" name="location" class="i_text" maxlength="45" size="60">
-								* 필수 항목입니다.
+								<td><input type="text" id="location" name="location" class="i_text" maxlength="45" size="60">* 필수 항목입니다.<br>
+								<font color="red">정확한 주소를 입력해 주세요!</font>
+								<!-- <input id="searchbt" type="button" value="위치검색"/> -->
 								</td>
 							</tr>
 							<tr class="underline">

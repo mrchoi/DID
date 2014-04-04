@@ -3,15 +3,14 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
 <!DOCTYPE html>
-<html lang="ko">
-
-  <head>
+<html>
+<script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/jquery-1.11.0.min.js"></script>
+ <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
   </head>
   <body>
  	<video controls id="myvideo" width="320" height="320" autoplay="yes">
- 		 <!-- <source src="http://fllkorea2.mireene.com/test/videos/bkaovAYt-364766.mp4" type="video/mp4">--> 
-  		 <source type="video/mp4" src="http://125.176.115.138:3501/did/resources/fileupload/movie4.mp4" > 
+  		 <source type="video/mp4" src="http://222.235.208.183:8080/grigo/movie5.mp4" >
   	</video>
   </body>
 </html>

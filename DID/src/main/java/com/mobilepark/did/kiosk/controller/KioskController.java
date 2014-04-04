@@ -18,7 +18,6 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.mobilepark.did.common.Env;
 import com.mobilepark.did.framework.web.PageHandler;
-import com.mobilepark.did.info.model.Info;
 import com.mobilepark.did.kiosk.model.Kiosk;
 import com.mobilepark.did.kiosk.service.KioskService;
 
