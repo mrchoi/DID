@@ -8,8 +8,10 @@ import java.nio.channels.Selector;
 import java.nio.channels.SocketChannel;
 import java.util.Iterator;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
+import com.mobilepark.did.info.controller.InfoController;
 import com.mobilepark.kiosk.common.ByteUtil;
 import com.mobilepark.kiosk.common.DateUtil;
 import com.mobilepark.kiosk.common.IOUtil;
@@ -18,7 +20,8 @@ import com.mobilepark.kiosk.model.Packet;
 
 public class KioskClient
 {
-	private final Logger logger = Logger.getLogger(this.getClass().getName());
+	private static final Logger logger = LoggerFactory
+			.getLogger(InfoController.class);
 	
 	private final int DEFAULT_PORT = 5555;
 	

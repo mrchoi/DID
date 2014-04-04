@@ -8,6 +8,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 
 import javax.servlet.http.HttpSession;
 
@@ -39,6 +40,22 @@ public class InfoController {
 
 	@Autowired
 	private InfoService infoService;
+	
+	
+	@RequestMapping(value = "/user/info/list.json", method = RequestMethod.POST)
+	@ResponseBody
+	public List<Info> userList(Model model,
+			@RequestParam(value = "category", defaultValue = "001") String category,
+			HttpSession session) throws Exception
+	{
+		
+		HashMap<String, Object> hash = new HashMap<String, Object>();
+		
+		hash.put("category",category);
+		List<Info> infoList = infoService.list(hash);
+		
+		return infoList;
+	}
 	
 	@RequestMapping(value = "admin/info/list.htm")
 	public ModelAndView list(HttpSession session,

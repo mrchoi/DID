@@ -79,5 +79,19 @@
 	padding-right: 30px;
 	text-align: center;
 }
+
+.img_button{
+	position:absolute;
+	z-index: 5;
+}
  
+ #web_close{ 	
+ 	position: absolute;
+	width:1200px;
+	background-color: #ACE0E0;  
+	display: -webkit-inline-box;
+ }
  
+ #w_keyboard{
+ 	margin-left:88%;
+ }
