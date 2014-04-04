@@ -86,7 +86,7 @@
    </script>
     	
 <div class="full">
-	<div id="map_canvas" class="full">
+	<div id="map_canvas" style="width:100%;height:1200px;">
 			
 	</div>
 	
