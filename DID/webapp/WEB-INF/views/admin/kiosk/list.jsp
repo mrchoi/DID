@@ -26,6 +26,30 @@ $(document).ready(function(){
 		MovePage("kiosk/list.htm", data);
 		return false;
 	}
+	
+	function clientCommand(ip,command,sequence){
+		ProcessPage("kiosk/clientCommand.htm",{ ip : ip , command : command, sequence : sequence },"kiosk/list.htm");
+		
+/* 		$.ajax({
+			url : "kiosk/clientCommand.htm",
+			data : { ip : ip , command : command, sequence : sequence },
+			success : function(msg) {
+				alert(msg);
+				return false;
+			}
+		}); */
+	}
+	
+	function serverWakeOnLan(ip,mac){
+		$.ajax({
+			url : "kiosk/serverWakeOnLan.htm",
+			data : { ip : ip , mac : mac },
+			success : function(msg) {
+				alert(msg);
+				return false;
+			}
+		});
+	}
 </Script>
 <form name="sendForm" id="sendForm" method="post">
 <input type="hidden" name="sequence" id="sequence"/>
@@ -65,9 +89,11 @@ $(document).ready(function(){
 									   <td>${kiosk.mac_address}</td>
 									   <td><c:if test="${kiosk.status=='0'}">장애</c:if><c:if test="${kiosk.status=='1'}">정상</c:if></td>
 									   <td>
-									   	<input id="statusbt" type="button" value="ON/OFF"/>
-									   	<input id="timebt" type="button" value="시계보정"/>
-									   	<input id="obstaclebt" type="button" value="장애공지"/>
+									   <c:if test="${kiosk.status=='0'}"><input id="statusbt" type="button" value="ON" onclick="serverWakeOnLan('${kiosk.ip}','${kiosk.mac_address}');"/></c:if>
+									   <c:if test="${kiosk.status=='1'}"><input id="statusbt" type="button" value="OFF" onclick="clientCommand('${kiosk.ip}','0','${kiosk.sequence}');"/></c:if>
+									   <c:if test="${kiosk.status=='1'}"><input id="timebt" type="button" value="시계보정" onclick="clientCommand('${kiosk.ip}','1','${kiosk.sequence}');"/></c:if>
+									   <c:if test="${kiosk.status=='1'}"><c:if test="${kiosk.obstacle_status=='0'}"><input id="obstaclebt" type="button" value="장애공지" onclick="clientCommand('${kiosk.ip}','2','${kiosk.sequence}');"/></c:if></c:if>				
+									   <c:if test="${kiosk.status=='1'}"><input id="restartbt" type="button" value="재시작" onclick="clientCommand('${kiosk.ip}','3','${kiosk.sequence}');"/></c:if>
 									   </td>
 									</tr>
 								</c:forEach>
