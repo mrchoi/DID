@@ -2,18 +2,13 @@ package com.mobilepark.kiosk.model;
 
 import java.nio.ByteBuffer;
 
+import org.apache.log4j.Logger;
 
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
-import com.mobilepark.did.info.controller.InfoController;
 import com.mobilepark.kiosk.common.ByteUtil;
 
 public class Packet
 {
-	private static final Logger logger = LoggerFactory
-			.getLogger(InfoController.class);
+	private static Logger logger = Logger.getLogger(Packet.class);
 	
 	private static String getBody(byte[] buffer)
 	{

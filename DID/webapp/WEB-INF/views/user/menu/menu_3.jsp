@@ -38,7 +38,8 @@
 			}
 			
 		}).click(function(){
-						
+			
+			
 			var file = $(this).attr('src').split("/");
 			var filename = file[file.length-1];
 			var path = "";
@@ -47,39 +48,19 @@
 			}
 			
 			for(var k=1; k< $(".infoimg").length+1 ;k++){
-				var filename1 = "info_00"+k;
+				var filename1 = "info_"+k;
 				$("#"+filename1).attr('src', path+"/"+filename1+".png");
 			}
 			
 			$(this).attr('src', path+"/"+filename);
 			festival = false;
 			
-			goFindMarker(this.id);
-			
 		});	
 			
 	   initialize();
    });
   
-   function goFindMarker(categoryId){
-	   console.log(categoryId.replace("info_",""));
-	   
-	   $.ajax({
-			type : "POST",
-			dataType : "json",
-			url : "user/info/list.json",
-			data : {"category":categoryId.replace("info_","")},
-			success : function(data) {
-				initialize(data);
-			},
-			error : function() {
-				alert("위치정보를 가져오지 못했습니다. 잠시 후 다시 해주세요.");
-				return false;
-			}
-		});
-   }   
-   
-   function initialize(data) {
+   function initialize() {
 
    	var myLatlng = new google.maps.LatLng(35.3374507, 128.9560922);
    	 
@@ -92,13 +73,6 @@
    	
    	var nowImage = '/did/resources/images/man.png';
 
-   	if(data){
-	   	for(var i=0;i<data.length;i++){
-	   		lat = data[i].lat;
-	   		lng = data[i].lng;
-	   	}
-   	}
-   	
    	new google.maps.Marker({
    		position: myLatlng,
    		map: map,
@@ -118,12 +92,12 @@
 	
 	<div id="bottom">
 	 
-			<div><img id="info_001" class="infoimg" src="${pageContext.request.contextPath}/resources/images/info_001_on.png"/><br/><b>관광지</b></div>
-			<div><img id="info_002" class="infoimg" src="${pageContext.request.contextPath}/resources/images/info_002.png"/><br/><b>음식점</b></div>
-			<div><img id="info_003" class="infoimg" src="${pageContext.request.contextPath}/resources/images/info_003.png"/><br/><b>숙박시설</b></div>
-			<div><img id="info_004" class="infoimg" src="${pageContext.request.contextPath}/resources/images/info_004.png"/><br/><b>특산품</b></div>
-			<div><img id="info_005" class="infoimg" src="${pageContext.request.contextPath}/resources/images/info_005.png"/><br/><b>대중교통</b></div>
-			<div><img id="info_006" class="infoimg" src="${pageContext.request.contextPath}/resources/images/info_006.png"/><br/><b>관공서</b></div>
+			<div><img id="info_1" class="infoimg" src="${pageContext.request.contextPath}/resources/images/info_1_on.png"/><br/><b>관광지</b></div>
+			<div><img id="info_2" class="infoimg" src="${pageContext.request.contextPath}/resources/images/info_2.png"/><br/><b>음식점</b></div>
+			<div><img id="info_3" class="infoimg" src="${pageContext.request.contextPath}/resources/images/info_3.png"/><br/><b>숙박시설</b></div>
+			<div><img id="info_4" class="infoimg" src="${pageContext.request.contextPath}/resources/images/info_4.png"/><br/><b>특산품</b></div>
+			<div><img id="info_5" class="infoimg" src="${pageContext.request.contextPath}/resources/images/info_5.png"/><br/><b>대중교통</b></div>
+			<div><img id="info_6" class="infoimg" src="${pageContext.request.contextPath}/resources/images/info_6.png"/><br/><b>관공서</b></div>
 		
 	</div>
 </div>

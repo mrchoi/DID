@@ -20,6 +20,7 @@ import com.mobilepark.did.common.Env;
 import com.mobilepark.did.framework.web.PageHandler;
 import com.mobilepark.did.kiosk.model.Kiosk;
 import com.mobilepark.did.kiosk.service.KioskService;
+import com.mobilepark.kiosk.client.KioskClient;
 
 @Controller
 public class KioskController {
@@ -46,6 +47,8 @@ public class KioskController {
 
 		hash.put("pg", pg);
 		
+		kioskService.heartbeatUpdate(kioskService.list(hash));
+
 		ModelAndView mv = new ModelAndView();
 		mv.setViewName("admin/kiosk/list");
 		mv.addObject("list", kioskService.list(hash));
@@ -66,9 +69,7 @@ public class KioskController {
 	
 	@RequestMapping(value = "admin/kiosk/insert.htm", method = RequestMethod.POST, produces="text/html;charset=UTF-8")
 	@ResponseBody
-	public String insert(Model model,@ModelAttribute("kiosk") Kiosk kiosk,
-			@RequestParam(value = "curPage", defaultValue = "") String curPage
-			) throws Exception
+	public String insert(Model model, @ModelAttribute("kiosk") Kiosk kiosk) throws Exception
 
 	{
 		String msg = "";
@@ -82,7 +83,9 @@ public class KioskController {
 				msg = Env.get("msg.kiosk.insert.succ");
 			else
 				msg = Env.get("msg.kiosk.insert.fail");
+
 		}catch(Exception e){
+			logger.info("" + e);
 			msg = Env.get("msg.user.exception");
 		}finally{
 		}
@@ -125,7 +128,7 @@ public class KioskController {
 		return msg;
 	}
 	
-	@RequestMapping(value = "admin/kiosk/delete.htm", method = RequestMethod.POST, produces="text/html;charset=UTF-8")
+	@RequestMapping(value = "admin/kiosk/delete.htm", method = RequestMethod.POST, produces = "text/html;charset=UTF-8")
 	@ResponseBody
 	public String delete(Model model,@ModelAttribute("kiosk") Kiosk kiosk,
 			@RequestParam(value = "curPage", defaultValue = "") String curPage
@@ -148,6 +151,59 @@ public class KioskController {
 			msg = Env.get("msg.user.exception");
 		}finally{
 		}
+		return msg;
+	}
+
+	@RequestMapping(value = "admin/kiosk/clientCommand.htm")
+	@ResponseBody
+	public String clientCommand(@RequestParam(value = "command", required = true) int command,
+			@RequestParam(value = "ip", required = true) String ip, @RequestParam(value = "sequence", required = true) int sequence) {
+
+		KioskClient client = new KioskClient();
+
+		String msg = "";
+		try {
+			msg = client.adminCall(ip, command, sequence);
+
+			if (command == 2 && msg.equals("SUCCESS")) {
+				Kiosk kiosk = new Kiosk();
+				kiosk.setSequence(sequence);
+				kiosk.setObstacle_status("1");
+
+				kioskService.update(kiosk);
+			}
+
+			logger.info("command:" + command + " msg:" + msg);
+
+			if (command == 3 && msg.equals("SUCCESS")) {
+				Kiosk kiosk = new Kiosk();
+				kiosk.setSequence(sequence);
+				kiosk.setObstacle_status("0");
+
+				kioskService.update(kiosk);
+			}
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		return msg;
+	}
+
+	@RequestMapping(value = "admin/kiosk/serverWakeOnLan.htm")
+	@ResponseBody
+	public String serverWakeOnLan(@RequestParam(value = "ip", required = true) String ip,
+			@RequestParam(value = "mac", required = true) String mac) {
+
+		KioskClient client = new KioskClient();
+
+		String msg = "";
+		try {
+			msg = client.wakeOnLan(ip, mac);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
 		return msg;
 	}
 

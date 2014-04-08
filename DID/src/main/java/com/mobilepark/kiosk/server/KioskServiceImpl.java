@@ -1,17 +1,13 @@
 package com.mobilepark.kiosk.server;
 
+import org.apache.log4j.Logger;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
-import com.mobilepark.did.info.controller.InfoController;
 import com.mobilepark.kiosk.common.DateUtil;
 import com.mobilepark.kiosk.model.Message;
 
 public class KioskServiceImpl implements KioskService
 {
-	private static final Logger logger = LoggerFactory
-			.getLogger(InfoController.class);
+	private Logger logger = Logger.getLogger(this.getClass());
 	
 	private String process(String cmd)
 	{

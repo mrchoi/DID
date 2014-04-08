@@ -9,12 +9,57 @@
   <head>
   	<meta http-equiv="content-type" content="text/html; charset=UTF-8" />
     <meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
-    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/admin_popup.css">
+    <style type="text/css">
+      /* Base */
+	html { height: 100% }
+	body { height: 100%; margin: 0; padding: 0 }
+	*{margin:0;padding:0}
+	body{font-size:12px;font-family:'나눔고딕',NanumGothic,'돋움',dotum,AppleGothic;line-height:18px;color:#636262;text-align:center}
+	ul,ol,dl,li,dt,dd{margin:0;padding:0;list-style:none}
+	h1,h2,h3,h4,h5,h6{margin:0;padding:0}
+	p{margin:0;padding:0;text-align:justify}
+	img{border:none;vertical-align:top}
+	textarea{overflow:auto}
+	form,fieldset,button{margin:0;padding:0;border:none}
+	a{text-decoration:none}
+	a:link,a:visited{color:#444;text-decoration:none}
+	a:hover,a:active,a:focus{text-decoration:none}
+	hr{display:none;margin:0;padding:0}
+	label{cursor:pointer}
+	address,em{font-style:normal;font-weight:normal}
+	html:first-child select{height:20px;padding-right:6px}
+	.png24{tmp:expression(setPng24(this))}
+
+	/* Opera 9 & Below Fix */
+	option{padding-right:6px}
+
+	/* hidden contents */
+	#accessibility,.skip,hr,legend,caption{visibility:hidden;overflow:hidden;z-index:-1;width:0;height:0;font-size:0;line-height:0}
+
+	@font-face{
+	font-family:NanumGothic;src:url(${pageContext.request.contextPath}/resources/images/NanumGothic.eot)}
+	@font-face{
+	font-family:NanumGothic;src:url(${pageContext.request.contextPath}/resources/images/NanumGothic.ttf)}
     
-    <script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/jquery-1.11.0.min.js"></script>
+    .popup{overflow:hidden;background:url(${pageContext.request.contextPath}/resources/images/facility_pop_bg.png) no-repeat 0 0;}
+  	.popup .con_s{float:left;height:378px;width:585px;text-align:left;}
+  	
+	.popup .title_s{float:left;width:71px;}
+	h1.h1_title{font-family:'나눔고딕',NanumGothic,'돋움',dotum,AppleGothic;font-size:33px;padding-top:40px;padding-left:65px;padding-bottom:35px;color:#1b1c20;}
+	.popup .con_txt{font-size:21px;padding-left:65px;line-height:34px;color:#636363;overflow:hidden;}
+	.popup .con_txt ul.info_list{float:left;width:150px;}
+	.popup .con_txt ul.map_list{float:left;padding-left:30px;border-left:1px dashed #bababa;}
+	.popup .con_txt ul li{font-size:21px;font-family:'나눔고딕',NanumGothic,'돋움',dotum,AppleGothic;line-height:34px;color:#636262;}
+	span.t1{font-size:21px;font-family:'나눔고딕',NanumGothic,'돋움',dotum,AppleGothic;line-height:34px;color:#282626;}
+	li.bl{background:url(${pageContext.request.contextPath}/resources/images/bl.gif) no-repeat 0 15px;padding-left:15px;}
+ 	
+ 	#map_canvas { height: 100% }
+ 	
+    </style>
+    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.6/jquery.min.js"></script>
     <script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?sensor=false"></script>
 	<script type="text/javascript" src="http://google-maps-utility-library-v3.googlecode.com/svn/trunk/infobox/src/infobox.js"></script>
-	<script type="text/javascript">
+    <script type="text/javascript">
     
     var lat = "";
     var lng = "";
@@ -71,59 +116,37 @@
     	var category = "${info.category}";
     	var popImage = "facility_pop_t1.png";
     	var cloaseImage = "facility_pop_close.png";
-    	var css ="popup";
    	
     	if(category.substring(0, 1)=="0") {
     		popImage="info_pop_t1.png";
     		cloaseImage = "info_pop_close1.png";
-    		if(category.substring(0, 3)=="001") css ="tour_popup";
-    		else css ="info_popup";
-     	}
-    	    	
-    	var contentString = null;
-    	if(category.substring(0, 3)=="001") {
-    		contentString = 
-        		'<div class='+css+'>'+
-    				'<div class="con_s">'+
-    					'<h1 class="h1_title">${info.title}</h1>'+
-    					'<div class="con_txt">'+
-    						'<div class="txt_s">${fn:replace(info.contents,newLineChar, '<br/>')}</div>'+
-    					'</div>'+
-    				'</div>'+
-    				'<div class="title_s">'+
-    					'<p><img src="${pageContext.request.contextPath}/resources/images/info_pop_t1.png" alt="" /></p>'+
+    		//$("#.popup").attr("background", "url(${pageContext.request.contextPath}/resources/images/info_pop_bg.png)");
+    		$(".popup .con_s").attr("width","815px");
+    	}
+    	
+    	var contentString = null;	
+    	contentString = 
+    		'<div id="pop" class="popup">'+
+    			'<div class="con_s">'+
+    				'<h1 class="h1_title">${info.title}</h1>'+
+    				'<div class="con_txt">';
+    					
+    					if(filesize.length >0 ){
+    						contentString += '<ul id="showImage" class="info_list">'+
+    						'<img src="${pageContext.request.contextPath}/resources/fileupload/${info.file_url}" alt="" width="120px" height="160px"/>'+
+        					'</ul>';
+    					}
+    	
+    					contentString += '<ul class="map_list">'+
+    						'<li>${fn:replace(info.contents,newLineChar, '<br/>')}</li>'+
+    					'</ul>'+
     				'</div>'+
     			'</div>'+
-    			'<div style="width:886px;">'+
-    				'<p style="float:left;"><img src="${pageContext.request.contextPath}/resources/images/info_pop_bottom2.png" alt="" /></p>'+
-    				'<p style="float:right;"><a href="javascript:closeInfobox()"><img src="${pageContext.request.contextPath}/resources/images/info_pop_close1.png" alt="" /></a></p>'+
-    			'</div>';
-    	
-    	}else{
-    		contentString = 
-        		'<div class='+css+'>'+
-        			'<div class="con_s">'+
-        				'<h1 class="h1_title">${info.title}</h1>'+
-        				'<div class="con_txt">';
-        					
-        					if(filesize.length >0 ){
-        						contentString += '<ul id="showImage" class="info_list">'+
-        						'<img src="${pageContext.request.contextPath}/resources/fileupload/${info.file_url}" alt="" width="120px" height="160px"/>'+
-            					'</ul>';
-        					}
-        	
-        					contentString += '<ul class="map_list">'+
-        						'<li>${fn:replace(info.contents,newLineChar, '<br/>')}</li>'+
-        					'</ul>'+
-        				'</div>'+
-        			'</div>'+
-        			'<div class="title_s">'+
-        				'<p><img src="${pageContext.request.contextPath}/resources/images/'+popImage+'" alt="" /></p>'+
-        				'<p><a href="javascript:closeInfobox();"><img src="${pageContext.request.contextPath}/resources/images/'+cloaseImage+'" alt="" /></a></p>'+
-        			'</div>'+
-        		'</div>';
-    	}
-    		
+    			'<div class="title_s">'+
+    				'<p><img src="${pageContext.request.contextPath}/resources/images/'+popImage+'" alt="" /></p>'+
+    				'<p><a href="javascript:closeInfobox();"><img src="${pageContext.request.contextPath}/resources/images/'+cloaseImage+'" alt="" /></a></p>'+
+    			'</div>'+
+    		'</div>';
 
     	var InfoBoxOptions = {
     			content: contentString,
@@ -148,6 +171,9 @@
     	infowindow = new InfoBox(InfoBoxOptions);
     	
     	google.maps.event.addListener(beachMarker, 'click', function() {
+    		var t = $(".popup .con_s").val("width");
+    		alert(t);
+    		$(".popup .con_s").attr("width","815px");
       		selectMarker(map,beachMarker);
     	});
     	
@@ -160,7 +186,6 @@
     function closeInfobox(){
 	   	infowindow.close();
     }
-    
     </script>
   </head>
   <body onload="geocode()">

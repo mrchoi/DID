@@ -8,6 +8,7 @@ public class Message
 	public final static short ON_OFF = 0;
 	public final static short CLOCK = 1;
 	public final static short POPUP = 2;
+	public final static short RESTART = 3;
 	public final static short HEARTBEAT = 255;
 	
 	public final static String SUCCESS = "SUCCESS";
